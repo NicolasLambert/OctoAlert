@@ -11,6 +11,7 @@
 #include <SPI.h>
 #include <Adafruit_VS1053.h>
 #include <SD.h>
+#include <Adafruit_NeoPixel.h>
 
 
 // define the pins used
@@ -33,6 +34,7 @@
 // DREQ should be an Int pin, see http://arduino.cc/en/Reference/attachInterrupt
 #define DREQ 3       // VS1053 Data request, ideally an Interrupt pin
 
+#define PIN 10
 
 //end of add your includes here
 #ifdef __cplusplus
@@ -46,7 +48,8 @@ void setup();
 
 //add your function definitions for the project OctoAlert here
 
-
+void colorWipe(uint32_t c);
+void blink();
 
 
 //Do not add code below this line
