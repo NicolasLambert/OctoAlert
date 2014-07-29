@@ -14,7 +14,7 @@ StandByState::StandByState() :
 void StandByState::activate() {
 	IOManager::getInstance()->m_musicPlayer->stopPlaying();
 	OctoAlertLeds* const octoAlertLeds = IOManager::getInstance()->m_octoAlertLeds;
-	octoAlertLeds->colorAll(Adafruit_NeoPixel::Color(0, 40, 33)); // Blue
+	octoAlertLeds->colorAll(0, 40, 33); // Blue
 	IOManager::getInstance()->m_red1Led->off();
 	IOManager::getInstance()->m_red2Led->off();
 	IOManager::getInstance()->m_red3Led->off();

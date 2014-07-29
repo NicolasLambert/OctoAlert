@@ -15,12 +15,9 @@ OctoAlertLeds::OctoAlertLeds(uint16_t pin) :
 	m_strip->show(); // Initialize all pixels to 'off'
 }
 
-void OctoAlertLeds::colorAll(uint32_t c) {
+void OctoAlertLeds::colorAll(uint8_t r, uint8_t g, uint8_t b) {
 	m_smoothBlinkWay = 0;
-	for (uint16_t i = 0; i < m_strip->numPixels(); i++) {
-		m_strip->setPixelColor(i, c);
-	}
-	m_strip->show();
+	internalColorAll(r,g,b);
 }
 
 void OctoAlertLeds::smoothBlink(int r, int g, int b) {
@@ -51,14 +48,21 @@ void OctoAlertLeds::update(unsigned long currentTime) {
 		int r = m_currentBrightness * m_rFactor / 100;
 		int g = m_currentBrightness * m_gFactor / 100;
 		int b = m_currentBrightness * m_bFactor / 100;
-		uint32_t color = Adafruit_NeoPixel::Color(r, g, b);
-		for (uint16_t i = 0; i < m_strip->numPixels(); i++) {
-			m_strip->setPixelColor(i, color);
-		}
-		m_strip->show();
+		internalColorAll(r, g, b);
 		m_currentBrightness += m_smoothBlinkWay;
 		if (m_currentBrightness <= MIN_BRIGHT_BLINK || m_currentBrightness >= MAX_BRIGHT_BLINK) {
 			m_smoothBlinkWay *= -1;
 		}
 	}
+}
+
+void OctoAlertLeds::internalColorAll(uint8_t r, uint8_t g, uint8_t b) {
+	uint32_t color = Adafruit_NeoPixel::Color(r, g, b);
+	int lastIndex = m_strip->numPixels() - 1;
+	for (uint16_t i = 0; i < lastIndex; i++) {
+		m_strip->setPixelColor(i, color);
+	}
+	// last Led (which is in the center) is in RGB mode instead of GRB
+	m_strip->setPixelColor(lastIndex, Adafruit_NeoPixel::Color(g, r, b));
+	m_strip->show();
 }

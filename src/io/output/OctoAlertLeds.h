@@ -18,9 +18,10 @@ class OctoAlertLeds {
 public:
 	OctoAlertLeds(uint16_t pin);
 	void update(unsigned long currentTime);
-	void colorAll(uint32_t c);
+	void colorAll(uint8_t r, uint8_t g, uint8_t b);
 	void smoothBlink(int r, int g, int b);
 private:
+	void internalColorAll(uint8_t r, uint8_t g, uint8_t b);
 	Adafruit_NeoPixel * const m_strip;
 	int m_smoothBlinkWay;
 	uint16_t m_currentBrightness;
