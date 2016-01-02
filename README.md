@@ -1,9 +1,9 @@
 OctoAlert
 =========
 
-An OctoAlert device inpired by the TV show "The Octonauts"
+An OctoAlert device inspired by the TV show "The Octonauts"
 
-You can found more information here : http://bidouillesfactory.fr/tag/octoalert/
+You can found more informations here : http://bidouillesfactory.fr/tag/octoalert/
 
 # Project IDE
 I use Eclipse CDT with the plug-in "Arduino C++ IDE"
