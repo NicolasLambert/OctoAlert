@@ -12,7 +12,7 @@
   BSD license, all text above must be included in any redistribution
  ****************************************************/
 
-#include <Adafruit_VS1053.h>
+#include "Adafruit_VS1053.h"
 #include <SD.h>
 
 static Adafruit_VS1053_FilePlayer *myself;

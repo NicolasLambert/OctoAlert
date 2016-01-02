@@ -1,0 +1,5 @@
+config/megaADK/boardName=Arduino Mega ADK
+config/megaADK/packageName=arduino
+config/megaADK/platformName=Arduino AVR Boards
+eclipse.preferences.version=1
+libraries=["SD","SPI"]

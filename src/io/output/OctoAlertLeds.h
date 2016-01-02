@@ -8,7 +8,9 @@
 #ifndef OCTOALERTLEDS_H_
 #define OCTOALERTLEDS_H_
 
-#include <Adafruit_NeoPixel.h>
+#include "../../../Libraries/Adafruit_NeoPixel/Adafruit_NeoPixel.h"
+#include <stdint.h>
+#include <stdint.h>
 
 #define MIN_BRIGHT_BLINK 50
 #define MAX_BRIGHT_BLINK 255
