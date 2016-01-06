@@ -6,6 +6,7 @@
  */
 
 #include "SoundState.h"
+#include "OctoStateManager.h"
 
 SoundState::SoundState(char const * const mp3CoreName) :
 		AbstractState(), m_trackNumberPosition(strlen(mp3CoreName)), m_lastIndex(0), m_maxIndex(1) {
@@ -36,4 +37,11 @@ void SoundState::activate() {
 		Serial.println(m_fileName);
 		IOManager::getInstance()->m_musicPlayer->playFile(m_fileName);
 	}
+}
+
+AbstractState * SoundState::getNextState() {
+	if (IOManager::getInstance()->m_musicPlayer->isPlaying()) {
+		return this;
+	}
+	return OctoStateManager::getInstance()->m_standByState;
 }

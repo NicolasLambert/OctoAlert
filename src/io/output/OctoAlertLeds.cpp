@@ -13,15 +13,53 @@ OctoAlertLeds::OctoAlertLeds(uint16_t pin) :
 				m_currentBrightness(0),
 				m_rFactor(100),
 				m_gFactor(100),
-				m_bFactor(100) {
+				m_bFactor(100),
+				off(Adafruit_NeoPixel::Color(0, 0, 0)) {
 	m_strip->begin();
 	m_strip->setBrightness(70);
 	m_strip->show(); // Initialize all pixels to 'off'
 }
 
-void OctoAlertLeds::colorAll(uint8_t r, uint8_t g, uint8_t b) {
+void OctoAlertLeds::colorAll(uint32_t color) {
 	m_smoothBlinkWay = 0;
-	internalColorAll(r,g,b);
+	internalColorAll(color);
+}
+
+void OctoAlertLeds::offAll() {
+	colorAll(off);
+}
+
+void OctoAlertLeds::colorQuarter(int quarterId, uint32_t color) {
+	m_smoothBlinkWay = 0;
+	for (uint16_t i = 0; i < m_strip->numPixels(); i++) {
+		if (isInQuarter(quarterId, i)) {
+			m_strip->setPixelColor(i, color);
+		} else {
+			m_strip->setPixelColor(i, off);
+		}
+	}
+	m_strip->show();
+}
+
+bool OctoAlertLeds::isInQuarter(int quarterId, int ledId) {
+	switch (quarterId) {
+	case TOP_RIGHT_QUARTER:
+		return (ledId>=15 && ledId<=20) || (ledId>=26 && ledId<= 29);
+	case BOTTOM_RIGHT_QUARTER:
+		return (ledId>=0 && ledId<=2) || (ledId>=21 && ledId<=25) || (ledId>=38 && ledId<= 39);
+	case BOTTOM_LEFT_QUARTER:
+		return (ledId>=3 && ledId<=8) || (ledId>=34 && ledId<= 37);
+	case TOP_LEFT_QUARTER:
+		return (ledId>=9 && ledId<=14) || (ledId>=30 && ledId<= 33);
+	}
+	return false;
+}
+
+void OctoAlertLeds::smoothBlink(uint32_t color) {
+	uint8_t r = (uint8_t) (color >> 16);
+	uint8_t g = (uint8_t) (color >> 8);
+	uint8_t b = (uint8_t) color;
+	smoothBlink(r, g, b);
 }
 
 void OctoAlertLeds::smoothBlink(int r, int g, int b) {
@@ -60,13 +98,19 @@ void OctoAlertLeds::update(unsigned long currentTime) {
 	}
 }
 
-void OctoAlertLeds::internalColorAll(uint8_t r, uint8_t g, uint8_t b) {
-	uint32_t color = Adafruit_NeoPixel::Color(r, g, b);
+void OctoAlertLeds::internalColorAll(uint32_t color) {
+	uint8_t r = (uint8_t) (color >> 16);
+	uint8_t g = (uint8_t) (color >> 8);
+	uint8_t b = (uint8_t) color;
+	internalColorAll(r, g, b);
+}
+
+void OctoAlertLeds::internalColorAll(uint8_t r, uint8_t g, uint8_t b ) {
 	int lastIndex = m_strip->numPixels() - 1;
 	for (uint16_t i = 0; i < lastIndex; i++) {
-		m_strip->setPixelColor(i, color);
+		m_strip->setPixelColor(i, r, g, b);
 	}
 	// last Led (which is in the center) is in RGB mode instead of GRB
-	m_strip->setPixelColor(lastIndex, Adafruit_NeoPixel::Color(g, r, b));
+	m_strip->setPixelColor(lastIndex, g, r, b);
 	m_strip->show();
 }

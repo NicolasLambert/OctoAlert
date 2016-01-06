@@ -14,10 +14,12 @@
 class SoundState: public AbstractState {
 public:
 	SoundState(char const * const mp3Path);
-	virtual void activate();
+	void activate();
+	AbstractState * getNextState();
+protected:
+	unsigned int m_lastIndex;
 private:
 	unsigned int m_trackNumberPosition;
-	unsigned int m_lastIndex;
 	unsigned int m_maxIndex;
 	char m_fileName[13];
 };

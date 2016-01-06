@@ -15,8 +15,8 @@ static unsigned int const cntDwnDelay[6] = { 0, 1950, 950, 950, 950, 950 };
 class CountDownState: public SoundState {
 public:
 	CountDownState(char const * const mp3Path);
-	virtual void activate();
-	virtual void update(unsigned long currentTime);
+	void activate();
+	void update(unsigned long currentTime);
 private:
 	unsigned long m_lastStepTime;
 	int m_lastStep;

@@ -13,7 +13,9 @@
 class OctoAlertState: public SoundState {
 public:
 	OctoAlertState(char const * const mp3Path);
-	virtual void activate();
+	void activate();
+private:
+	const uint32_t m_yellow;
 };
 
 #endif /* OCTOALERTSTATE_H_ */

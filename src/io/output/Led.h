@@ -16,9 +16,9 @@ class Led: public DigitalOutput {
 public:
 	Led(int const pin);
 	void blink();
-	virtual void on();
-	virtual void off();
-	virtual void update(unsigned long currentTime);
+	void on();
+	void off();
+	void update(unsigned long currentTime);
 private:
 	unsigned long m_previousBlinkTime; // will store last time LED was updated
 	bool m_isBlinking;

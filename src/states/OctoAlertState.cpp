@@ -8,10 +8,10 @@
 #include "OctoAlertState.h"
 
 OctoAlertState::OctoAlertState(char const * const mp3Path) :
-		SoundState(mp3Path) {
+		SoundState(mp3Path), m_yellow(Adafruit_NeoPixel::Color(255, 144, 0)) {
 }
 
 void OctoAlertState::activate() {
 	SoundState::activate();
-	IOManager::getInstance()->m_octoAlertLeds->smoothBlink(255, 144, 0);
+	IOManager::getInstance()->m_octoAlertLeds->smoothBlink(m_yellow);
 }

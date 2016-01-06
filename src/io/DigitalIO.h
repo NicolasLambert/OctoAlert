@@ -9,15 +9,14 @@
 #define DIGITALIO_H_
 
 #include "Arduino.h"
+#include "../Updatable.h"
 
 class DoorStateManager;
 
-class DigitalIO {
+class DigitalIO : public Updatable {
 public:
 	DigitalIO(int const pin, bool const reversed = false);
-	virtual ~DigitalIO();
 	virtual bool const getState() = 0;
-	virtual void update(unsigned long currentTime) = 0;
 protected:
 	int const m_pin;
 	bool const m_reversed;

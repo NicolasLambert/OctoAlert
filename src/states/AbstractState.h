@@ -8,11 +8,13 @@
 #ifndef ABSTRACTSTATE_H_
 #define ABSTRACTSTATE_H_
 
-class AbstractState {
+#include "../Activable.h"
+
+class AbstractState : public Activable {
 public:
 	AbstractState();
-	virtual ~AbstractState();
-	virtual void activate() = 0;
+	void update(unsigned long currentTime);
+	virtual AbstractState * getNextState() = 0;
 };
 
 #endif /* ABSTRACTSTATE_H_ */

@@ -20,7 +20,7 @@ void DigitalOutput::setState(const bool newState) {
 	}
 }
 
-const bool DigitalOutput::getState() {
+bool const DigitalOutput::getState() {
 	return m_lastState;
 }
 
@@ -34,8 +34,4 @@ void DigitalOutput::off() {
 
 void DigitalOutput::toggle() {
 	setState(!m_lastState);
-}
-
-void DigitalOutput::update(unsigned long currentTime) {
-	// Do nothings, some output like Leds will override if necessary
 }

@@ -12,6 +12,7 @@
 #include "OctoAlertState.h"
 #include "StandByState.h"
 #include "CountDownState.h"
+#include "SimonState.h"
 
 class OctoStateManager: public AbstractManager<OctoStateManager> {
 public:
@@ -24,16 +25,17 @@ public:
 	static void pesoPressed(bool const oldState, bool const newState);
 	static void countDownPressed(bool const oldState, bool const newState);
 	void update(unsigned long currentTime);
+	StandByState * m_standByState;
 
 private:
 	// States members
-	StandByState * m_standByState;
 	OctoAlertState * m_octoAlertState;
 	SoundState * m_captainBarnaclesState;
 	SoundState * m_tweakState;
 	SoundState * m_kwaziiState;
 	SoundState * m_pesoState;
 	CountDownState * m_countDownState;
+	SimonState * m_simonState;
 
 	AbstractState * m_currentState;
 	void changeState(AbstractState * newState);

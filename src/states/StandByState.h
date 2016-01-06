@@ -14,7 +14,10 @@
 class StandByState: public AbstractState {
 public:
 	StandByState();
-	virtual void activate();
+	void activate();
+	AbstractState * getNextState();
+private:
+	const uint32_t m_blue;
 };
 
 #endif /* STANDBYSTATE_H_ */
