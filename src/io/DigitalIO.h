@@ -15,6 +15,7 @@ class DoorStateManager;
 class DigitalIO {
 public:
 	DigitalIO(int const pin, bool const reversed = false);
+	virtual ~DigitalIO();
 	virtual bool const getState() = 0;
 	virtual void update(unsigned long currentTime) = 0;
 protected:

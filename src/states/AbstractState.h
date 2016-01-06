@@ -11,6 +11,7 @@
 class AbstractState {
 public:
 	AbstractState();
+	virtual ~AbstractState();
 	virtual void activate() = 0;
 };
 
