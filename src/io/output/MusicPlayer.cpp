@@ -8,8 +8,9 @@
 #include "MusicPlayer.h"
 
 MusicPlayer::MusicPlayer() :
-		m_musicPlayer(new Adafruit_VS1053_FilePlayer(SHIELD_CS, SHIELD_DCS, DREQ, CARDCS)), m_lastGPIORead(0UL), m_lastGPIOValues(
-				0) {
+				m_musicPlayer(new Adafruit_VS1053_FilePlayer(SHIELD_CS, SHIELD_DCS, DREQ, CARDCS)),
+				m_lastGPIORead(0UL),
+				m_lastGPIOValues(0) {
 	if (!m_musicPlayer->begin()) { // initialise the music player
 		while (1);
 	}

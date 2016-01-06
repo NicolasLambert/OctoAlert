@@ -12,10 +12,8 @@ template<typename T>
 class AbstractManager {
 protected:
 	// Constructeur/destructeur
-	AbstractManager() {
-	}
-	~AbstractManager() {
-	}
+	AbstractManager() {}
+	~AbstractManager() {}
 public:
 	// Interface publique
 	static T *getInstance() {

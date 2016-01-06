@@ -8,8 +8,12 @@
 #include "OctoAlertLeds.h"
 
 OctoAlertLeds::OctoAlertLeds(uint16_t pin) :
-		m_strip(new Adafruit_NeoPixel(41, pin, NEO_GRB + NEO_KHZ800)), m_smoothBlinkWay(0), m_currentBrightness(0), m_rFactor(
-				100), m_gFactor(100), m_bFactor(100) {
+				m_strip(new Adafruit_NeoPixel(41, pin, NEO_GRB + NEO_KHZ800)),
+				m_smoothBlinkWay(0),
+				m_currentBrightness(0),
+				m_rFactor(100),
+				m_gFactor(100),
+				m_bFactor(100) {
 	m_strip->begin();
 	m_strip->setBrightness(70);
 	m_strip->show(); // Initialize all pixels to 'off'
