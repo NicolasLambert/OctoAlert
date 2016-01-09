@@ -18,12 +18,7 @@ class OctoStateManager: public AbstractManager<OctoStateManager> {
 public:
 	// Listener methods
 	OctoStateManager();
-	static void octoAlertPressed(bool const oldState, bool const newState);
-	static void captainBarnaclesPressed(bool const oldState, bool const newState);
-	static void tweakPressed(bool const oldState, bool const newState);
-	static void kwaziiPressed(bool const oldState, bool const newState);
-	static void pesoPressed(bool const oldState, bool const newState);
-	static void countDownPressed(bool const oldState, bool const newState);
+	static void buttonChanged(uint8_t buttonStates);
 	void update(unsigned long currentTime);
 	StandByState * m_standByState;
 

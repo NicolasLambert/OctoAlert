@@ -23,50 +23,27 @@ OctoStateManager::OctoStateManager() :
 
 {
 	// Set listeners
-	IOManager::getInstance()->m_octoAlertButton->setListener(&OctoStateManager::octoAlertPressed);
-	IOManager::getInstance()->m_countDownButton->setListener(&OctoStateManager::countDownPressed);
-	IOManager::getInstance()->m_captainBarnaclesButton->setListener(&OctoStateManager::captainBarnaclesPressed);
-	IOManager::getInstance()->m_tweakButton->setListener(&OctoStateManager::tweakPressed);
-	IOManager::getInstance()->m_kwaziiButton->setListener(&OctoStateManager::kwaziiPressed);
-	IOManager::getInstance()->m_pesoButton->setListener(&OctoStateManager::pesoPressed);
+	IOManager::getInstance()->setListener(&OctoStateManager::buttonChanged);
 
 	// Initial state
 	changeState(m_standByState);
 }
 
-void OctoStateManager::octoAlertPressed(const bool oldState, const bool newState) {
-	if (newState) {
+void OctoStateManager::buttonChanged(uint8_t buttonStates) {
+	if (buttonStates == BTN_OCTOALERT) {
 		getInstance()->changeState(getInstance()->m_octoAlertState);
-	}
-}
-
-void OctoStateManager::captainBarnaclesPressed(const bool oldState, const bool newState) {
-	if (newState && getInstance()->m_currentState!=getInstance()->m_simonState) {
-		getInstance()->changeState(getInstance()->m_captainBarnaclesState);
-	}
-}
-
-void OctoStateManager::tweakPressed(const bool oldState, const bool newState) {
-	if (newState && getInstance()->m_currentState!=getInstance()->m_simonState) {
-		getInstance()->changeState(getInstance()->m_tweakState);
-	}
-}
-
-void OctoStateManager::kwaziiPressed(const bool oldState, const bool newState) {
-	if (newState && getInstance()->m_currentState!=getInstance()->m_simonState) {
-		getInstance()->changeState(getInstance()->m_kwaziiState);
-	}
-}
-
-void OctoStateManager::pesoPressed(const bool oldState, const bool newState) {
-	if (newState && getInstance()->m_currentState!=getInstance()->m_simonState) {
-		getInstance()->changeState(getInstance()->m_pesoState);
-	}
-}
-
-void OctoStateManager::countDownPressed(const bool oldState, const bool newState) {
-	if (newState) {
+	} else if (buttonStates == BTN_COUNTDOWN) {
 		getInstance()->changeState(getInstance()->m_countDownState);
+	} else if (buttonStates == BTN_CPTBARNAC) {
+		getInstance()->changeState(getInstance()->m_captainBarnaclesState);
+	} else if (buttonStates == BTN_TWEAK) {
+		getInstance()->changeState(getInstance()->m_tweakState);
+	} else if (buttonStates == BTN_KWAZII) {
+		getInstance()->changeState(getInstance()->m_kwaziiState);
+	} else if (buttonStates == BTN_PESO) {
+		getInstance()->changeState(getInstance()->m_pesoState);
+	} else if (buttonStates == (BTN_PESO & BTN_KWAZII)) {
+		getInstance()->changeState(getInstance()->m_simonState);
 	}
 }
 
@@ -84,10 +61,6 @@ void OctoStateManager::update(unsigned long currentTime) {
 }
 
 void OctoStateManager::changeState(AbstractState* newState) {
-	if (IOManager::getInstance()->m_pesoButton->getState() && IOManager::getInstance()->m_kwaziiButton->getState()) {
-		// If Kwasii and Peso button are pressed at the same time, go to simon mode !
-		newState = m_simonState;
-	}
 	m_currentState = newState;
 	if (m_standByState != newState) {
 		// Stop music and restore stand by led states

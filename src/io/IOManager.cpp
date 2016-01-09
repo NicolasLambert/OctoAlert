@@ -26,8 +26,20 @@ IOManager::IOManager() :
 		m_captainBarnaclesButton(new Button(28)),
 		m_tweakButton(new Button(22)),
 		m_kwaziiButton(new Button(30)),
-		m_pesoButton(new Button(26))
-{}
+		m_pesoButton(new Button(26)),
+
+		// All button states
+		m_listener(0),
+		m_buttonStates(0) {
+
+	// Set listeners
+	m_octoAlertButton->setListener(&IOManager::octoAlertPressed);
+	m_countDownButton->setListener(&IOManager::countDownPressed);
+	m_captainBarnaclesButton->setListener(&IOManager::captainBarnaclesPressed);
+	m_tweakButton->setListener(&IOManager::tweakPressed);
+	m_kwaziiButton->setListener(&IOManager::kwaziiPressed);
+	m_pesoButton->setListener(&IOManager::pesoPressed);
+}
 
 void IOManager::update(unsigned long currentTime) {
 	// Outputs
@@ -41,4 +53,45 @@ void IOManager::update(unsigned long currentTime) {
 	m_tweakButton->update(currentTime);
 	m_kwaziiButton->update(currentTime);
 	m_pesoButton->update(currentTime);
+}
+
+void IOManager::octoAlertPressed(const bool oldState, const bool newState) {
+	getInstance()->pingListeners(BTN_OCTOALERT, newState);
+}
+
+void IOManager::countDownPressed(const bool oldState, const bool newState) {
+	getInstance()->pingListeners(BTN_COUNTDOWN, newState);
+}
+
+void IOManager::captainBarnaclesPressed(const bool oldState, const bool newState) {
+	getInstance()->pingListeners(BTN_CPTBARNAC, newState);
+}
+
+void IOManager::tweakPressed(const bool oldState, const bool newState) {
+	getInstance()->pingListeners(BTN_TWEAK, newState);
+}
+
+void IOManager::kwaziiPressed(const bool oldState, const bool newState) {
+	getInstance()->pingListeners(BTN_KWAZII, newState);
+}
+
+void IOManager::pesoPressed(const bool oldState, const bool newState) {
+	getInstance()->pingListeners(BTN_PESO, newState);
+}
+
+void IOManager::pingListeners(uint8_t buttonMask, bool newState) {
+	// Update current values
+	if (newState) {
+		m_buttonStates |= buttonMask;
+		// Ping listener only on button push
+		if (m_listener) {
+			(*m_listener)(m_buttonStates);
+		}
+	} else {
+		m_buttonStates &= ~buttonMask;
+	}
+}
+
+void IOManager::setListener(ButtonChangeListener listener) {
+	m_listener = listener;
 }
