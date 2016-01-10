@@ -7,8 +7,6 @@
 
 #include "OctoStateManager.h"
 
-//#define PRINT_DEBUG_MSGS
-
 OctoStateManager::OctoStateManager() :
 
 		// States
@@ -19,9 +17,8 @@ OctoStateManager::OctoStateManager() :
 		m_kwaziiState(new SoundState("Kwazii")),
 		m_pesoState(new SoundState("Peso")),
 		m_countDownState(new CountDownState("CntDown")),
-		m_simonState(new SimonState("Simon"))
+		m_simonState(new SimonState("Simon")) {
 
-{
 	// Set listeners
 	InputManager::getInstance()->setListener(this);
 
@@ -42,7 +39,7 @@ void OctoStateManager::onNewInputState(uint8_t newState) {
 		changeState(m_kwaziiState);
 	} else if (newState == BTN_PESO) {
 		changeState(m_pesoState);
-	} else if (newState == (BTN_PESO & BTN_KWAZII)) {
+	} else if (newState == (BTN_PESO | BTN_KWAZII)) {
 		changeState(m_simonState);
 	}
 }
