@@ -23,27 +23,27 @@ OctoStateManager::OctoStateManager() :
 
 {
 	// Set listeners
-	IOManager::getInstance()->setListener(&OctoStateManager::buttonChanged);
+	IOManager::getInstance()->setListener(this);
 
 	// Initial state
 	changeState(m_standByState);
 }
 
-void OctoStateManager::buttonChanged(uint8_t buttonStates) {
-	if (buttonStates == BTN_OCTOALERT) {
-		getInstance()->changeState(getInstance()->m_octoAlertState);
-	} else if (buttonStates == BTN_COUNTDOWN) {
-		getInstance()->changeState(getInstance()->m_countDownState);
-	} else if (buttonStates == BTN_CPTBARNAC) {
-		getInstance()->changeState(getInstance()->m_captainBarnaclesState);
-	} else if (buttonStates == BTN_TWEAK) {
-		getInstance()->changeState(getInstance()->m_tweakState);
-	} else if (buttonStates == BTN_KWAZII) {
-		getInstance()->changeState(getInstance()->m_kwaziiState);
-	} else if (buttonStates == BTN_PESO) {
-		getInstance()->changeState(getInstance()->m_pesoState);
-	} else if (buttonStates == (BTN_PESO & BTN_KWAZII)) {
-		getInstance()->changeState(getInstance()->m_simonState);
+void OctoStateManager::onNewInputState(uint8_t newState) {
+	if (newState == BTN_OCTOALERT) {
+		changeState(m_octoAlertState);
+	} else if (newState == BTN_COUNTDOWN) {
+		changeState(m_countDownState);
+	} else if (newState == BTN_CPTBARNAC) {
+		changeState(m_captainBarnaclesState);
+	} else if (newState == BTN_TWEAK) {
+		changeState(m_tweakState);
+	} else if (newState == BTN_KWAZII) {
+		changeState(m_kwaziiState);
+	} else if (newState == BTN_PESO) {
+		changeState(m_pesoState);
+	} else if (newState == (BTN_PESO & BTN_KWAZII)) {
+		changeState(m_simonState);
 	}
 }
 

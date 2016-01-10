@@ -9,21 +9,23 @@
 #define DIGITALINPUT_H_
 
 #include "../DigitalIO.h"
+#include "InputListener.h"
+
 #define DEFAULT_DEBOUNCE_DELAY 50
 
 class DigitalInput: public DigitalIO {
 public:
-	typedef void (*InputChangeListener)(bool const oldState, bool const newState);
-	DigitalInput(int const pin, bool const reversed, unsigned int debounceDelay);
-	void setListener(InputChangeListener listener);
+	DigitalInput(int const pin, bool const reversed, uint8_t mask, unsigned int debounceDelay);
+	void setListener(InputListener * listener);
 	bool const getState();
 	void update(unsigned long currentTime);
 private:
 	unsigned long m_lastChangeTime;
 	bool m_lastState;
 	bool m_currentState;
-	InputChangeListener m_listener;
+	InputListener * m_listener;
 	unsigned int m_debounceDelay;
+	uint8_t m_mask;
 };
 
 #endif /* DIGITALINPUT_H_ */

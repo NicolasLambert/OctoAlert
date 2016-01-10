@@ -12,9 +12,11 @@
 #include <SD.h>
 #include "../AbstractManager.h"
 #include "input/Button.h"
+#include "input/InputListener.h"
 #include "output/Led.h"
 #include "output/OctoAlertLeds.h"
 #include "output/MusicPlayer.h"
+#include "input/InputManagerListener.h"
 
 #define BTN_OCTOALERT 1
 #define BTN_COUNTDOWN 2
@@ -23,11 +25,10 @@
 #define BTN_KWAZII    16
 #define BTN_PESO      32
 
-class IOManager: public AbstractManager<IOManager> {
+class IOManager: public AbstractManager<IOManager>, public InputListener {
 public:
-	typedef void (*ButtonChangeListener)(uint8_t m_buttonStates);
 	IOManager();
-	void setListener(ButtonChangeListener listener);
+	void setListener(InputManagerListener * listener);
 	void update(unsigned long currentTime);
 
 	//----------------------------------------------------------------------------------------------------
@@ -42,15 +43,9 @@ public:
 	Led * const m_greenLed;
 
 private:
-	static void octoAlertPressed(bool const oldState, bool const newState);
-	static void captainBarnaclesPressed(bool const oldState, bool const newState);
-	static void tweakPressed(bool const oldState, bool const newState);
-	static void kwaziiPressed(bool const oldState, bool const newState);
-	static void pesoPressed(bool const oldState, bool const newState);
-	static void countDownPressed(bool const oldState, bool const newState);
-	void pingListeners(uint8_t buttonId, bool newState);
+	void onNewInputState(uint8_t mask, bool newState);
 	uint8_t m_buttonStates;
-	ButtonChangeListener m_listener;
+	InputManagerListener * m_listener;
 	// Inputs
 	Button * const m_octoAlertButton;
 	Button * const m_countDownButton;

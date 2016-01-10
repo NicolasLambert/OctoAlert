@@ -14,11 +14,11 @@
 #include "CountDownState.h"
 #include "SimonState.h"
 
-class OctoStateManager: public AbstractManager<OctoStateManager> {
+class OctoStateManager: public AbstractManager<OctoStateManager>, public InputManagerListener {
 public:
 	// Listener methods
 	OctoStateManager();
-	static void buttonChanged(uint8_t buttonStates);
+	void onNewInputState(uint8_t newState);
 	void update(unsigned long currentTime);
 	StandByState * m_standByState;
 
