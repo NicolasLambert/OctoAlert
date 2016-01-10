@@ -45,9 +45,8 @@ void OctoStateManager::onNewInputState(uint8_t newState) {
 }
 
 void OctoStateManager::update() {
-	AbstractState* nextState = m_currentState->getNextState();
-	if (nextState != m_currentState) {
-		changeState(nextState);
+	if (m_currentState->isFinished()) {
+		changeState(m_standByState);
 	}
 
 	// Update count down procedure

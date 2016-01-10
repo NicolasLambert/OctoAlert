@@ -14,7 +14,7 @@ class AbstractState : public Activable {
 public:
 	AbstractState();
 	void update();
-	virtual AbstractState * getNextState() = 0;
+	virtual bool isFinished() = 0;
 };
 
 #endif /* ABSTRACTSTATE_H_ */

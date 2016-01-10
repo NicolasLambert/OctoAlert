@@ -6,8 +6,6 @@
  */
 
 #include "SimonState.h"
-#include "../../Libraries/Adafruit_NeoPixel/Adafruit_NeoPixel.h"
-#include "OctoStateManager.h"
 
 SimonState::SimonState(char const * const mp3Path) :
 		SoundState(mp3Path),
@@ -64,9 +62,6 @@ void SimonState::update() {
 	}
 }
 
-AbstractState * SimonState::getNextState() {
-	if (m_lastStep >= STEP_COUNT) {
-		return OctoStateManager::getInstance()->m_standByState;
-	}
-	return this;
+bool SimonState::isFinished() {
+	return m_lastStep >= STEP_COUNT;
 }

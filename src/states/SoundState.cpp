@@ -39,9 +39,6 @@ void SoundState::activate() {
 	}
 }
 
-AbstractState * SoundState::getNextState() {
-	if (OutputManager::getInstance()->m_musicPlayer->isPlaying()) {
-		return this;
-	}
-	return OctoStateManager::getInstance()->m_standByState;
+bool SoundState::isFinished() {
+	return !OutputManager::getInstance()->m_musicPlayer->isPlaying();
 }

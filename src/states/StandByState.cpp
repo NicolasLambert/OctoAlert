@@ -19,6 +19,6 @@ void StandByState::activate() {
 	OutputManager::getInstance()->m_startLed->on();
 }
 
-AbstractState * StandByState::getNextState() {
-	return this;
+bool StandByState::isFinished() {
+	return false;
 }

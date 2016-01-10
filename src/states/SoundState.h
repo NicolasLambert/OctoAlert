@@ -16,7 +16,7 @@ class SoundState: public AbstractState {
 public:
 	SoundState(char const * const mp3Path);
 	void activate();
-	AbstractState * getNextState();
+	bool isFinished();
 protected:
 	unsigned int m_lastIndex;
 private:

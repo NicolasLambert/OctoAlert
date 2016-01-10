@@ -15,7 +15,7 @@ class StandByState: public AbstractState {
 public:
 	StandByState();
 	void activate();
-	AbstractState * getNextState();
+	bool isFinished();
 private:
 	const uint32_t m_blue;
 };
