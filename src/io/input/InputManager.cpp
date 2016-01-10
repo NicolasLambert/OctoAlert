@@ -31,7 +31,9 @@ uint8_t InputManager::getState() {
 	m_pesoButton->getState() * BTN_PESO;
 }
 
-void InputManager::update(unsigned long currentTime) {
+void InputManager::update() {
+	unsigned long currentTime = millis();
+
 	// Compute new manager state
 	uint8_t newState = getState();
 

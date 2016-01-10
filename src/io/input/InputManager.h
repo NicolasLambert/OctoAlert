@@ -24,7 +24,7 @@ class InputManager: public AbstractManager<InputManager> {
 public:
 	InputManager();
 	void setListener(InputManagerListener * listener);
-	void update(unsigned long currentTime);
+	void update();
 	uint8_t getState();
 
 private:

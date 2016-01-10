@@ -13,7 +13,7 @@
 class AbstractState : public Activable {
 public:
 	AbstractState();
-	void update(unsigned long currentTime);
+	void update();
 	virtual AbstractState * getNextState() = 0;
 };
 

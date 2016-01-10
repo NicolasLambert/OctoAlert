@@ -16,7 +16,7 @@
 class OutputManager: public AbstractManager<OutputManager> {
 public:
 	OutputManager();
-	void update(unsigned long currentTime);
+	void update();
 
 	//----------------------------------------------------------------------------------------------------
 	// Outputs

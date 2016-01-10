@@ -23,7 +23,7 @@
 class OctoAlertLeds {
 public:
 	OctoAlertLeds(uint16_t pin);
-	void update(unsigned long currentTime);
+	void update();
 	void colorAll(uint32_t color);
 	void colorQuarter(int quarterId, uint32_t color);
 	void smoothBlink(uint32_t color);

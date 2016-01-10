@@ -18,7 +18,7 @@ public:
 	void blink();
 	void on();
 	void off();
-	void update(unsigned long currentTime);
+	void update();
 private:
 	unsigned long m_previousBlinkTime; // will store last time LED was updated
 	bool m_isBlinking;

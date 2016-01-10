@@ -17,8 +17,9 @@ void CountDownState::activate() {
 	OutputManager::getInstance()->m_startLed->off();
 }
 
-void CountDownState::update(unsigned long currentTime) {
-	AbstractState::update(currentTime);
+void CountDownState::update() {
+	AbstractState::update();
+	unsigned long currentTime = millis();
 	if (m_lastStep > 0 && m_lastStepTime + cntDwnDelay[m_lastStep - 1] < currentTime) {
 		m_lastStepTime = currentTime;
 		switch (m_lastStep) {

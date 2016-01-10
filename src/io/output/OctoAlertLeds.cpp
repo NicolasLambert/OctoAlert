@@ -85,7 +85,7 @@ void OctoAlertLeds::smoothBlink(int r, int g, int b) {
 	m_currentBrightness = MAX_BRIGHT_BLINK;
 }
 
-void OctoAlertLeds::update(unsigned long currentTime) {
+void OctoAlertLeds::update() {
 	if (m_smoothBlinkWay != 0) {
 		int r = m_currentBrightness * m_rFactor / 100;
 		int g = m_currentBrightness * m_gFactor / 100;

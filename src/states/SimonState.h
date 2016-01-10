@@ -18,7 +18,7 @@ class SimonState: public SoundState {
 public:
 	SimonState(char const * const mp3Path);
 	void activate();
-	void update(unsigned long currentTime);
+	void update();
 	AbstractState * getNextState();
 private:
 	void colorQuarter(int quarterId);

@@ -44,14 +44,14 @@ void OctoStateManager::onNewInputState(uint8_t newState) {
 	}
 }
 
-void OctoStateManager::update(unsigned long currentTime) {
+void OctoStateManager::update() {
 	AbstractState* nextState = m_currentState->getNextState();
 	if (nextState != m_currentState) {
 		changeState(nextState);
 	}
 
 	// Update count down procedure
-	m_currentState->update(currentTime);
+	m_currentState->update();
 }
 
 void OctoStateManager::changeState(AbstractState* newState) {

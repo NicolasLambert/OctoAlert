@@ -11,7 +11,7 @@
 class Updatable {
 public:
 	virtual ~Updatable();
-	virtual void update(unsigned long currentTime) = 0;
+	virtual void update() = 0;
 };
 
 #endif /* SRC_UPDATABLE_H_ */

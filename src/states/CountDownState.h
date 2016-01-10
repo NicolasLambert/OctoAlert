@@ -16,7 +16,7 @@ class CountDownState: public SoundState {
 public:
 	CountDownState(char const * const mp3Path);
 	void activate();
-	void update(unsigned long currentTime);
+	void update();
 private:
 	unsigned long m_lastStepTime;
 	int m_lastStep;

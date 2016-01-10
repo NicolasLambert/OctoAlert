@@ -19,7 +19,7 @@ public:
 	// Listener methods
 	OctoStateManager();
 	void onNewInputState(uint8_t newState);
-	void update(unsigned long currentTime);
+	void update();
 	StandByState * m_standByState;
 
 private:

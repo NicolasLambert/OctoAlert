@@ -50,8 +50,9 @@ void SimonState::colorQuarter(int quarterId) {
 }
 
 
-void SimonState::update(unsigned long currentTime) {
-	AbstractState::update(currentTime);
+void SimonState::update() {
+	AbstractState::update();
+	unsigned long currentTime = millis();
 	if (currentTime - m_lastStepTime > SOUND_DURATION) {
 		OutputManager::getInstance()->m_musicPlayer->stopPlaying();
 		OutputManager::getInstance()->m_octoAlertLeds->offAll();

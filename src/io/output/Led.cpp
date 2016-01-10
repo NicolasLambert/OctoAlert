@@ -25,7 +25,8 @@ void Led::off() {
 	m_isBlinking = false;
 }
 
-void Led::update(unsigned long currentTime) {
+void Led::update() {
+	unsigned long currentTime = millis();
 	if (m_isBlinking) {
 		if ((currentTime - m_previousBlinkTime) > BLINK_INTERVAL) {
 			// save the last time you blinked the LED

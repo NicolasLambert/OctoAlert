@@ -9,6 +9,6 @@
 
 AbstractState::AbstractState() {}
 
-void AbstractState::update(unsigned long currentTime) {
+void AbstractState::update() {
 	// Do nothing, update is not always necessary in states
 }

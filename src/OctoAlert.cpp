@@ -12,8 +12,7 @@ void setup() {
 
 void loop() {
 	// Update state manager
-	unsigned long currentTime = millis();
-	InputManager::getInstance()->update(currentTime);
-	OctoStateManager::getInstance()->update(currentTime);
-	OutputManager::getInstance()->update(currentTime);
+	InputManager::getInstance()->update();
+	OctoStateManager::getInstance()->update();
+	OutputManager::getInstance()->update();
 }

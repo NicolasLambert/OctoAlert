@@ -17,12 +17,12 @@ OutputManager::OutputManager() :
 		m_orangeLed(new Led(34)),
 		m_greenLed(new Led(24)) {}
 
-void OutputManager::update(unsigned long currentTime) {
-	m_octoAlertLeds->update(currentTime);
-	m_startLed->update(currentTime);
-	m_red1Led->update(currentTime);
-	m_red2Led->update(currentTime);
-	m_red3Led->update(currentTime);
-	m_orangeLed->update(currentTime);
-	m_greenLed->update(currentTime);
+void OutputManager::update() {
+	m_octoAlertLeds->update();
+	m_startLed->update();
+	m_red1Led->update();
+	m_red2Led->update();
+	m_red3Led->update();
+	m_orangeLed->update();
+	m_greenLed->update();
 }

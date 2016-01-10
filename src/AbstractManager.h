@@ -8,12 +8,13 @@
 #ifndef ABSTRACTMANAGER_H_
 #define ABSTRACTMANAGER_H_
 
+#include "Updatable.h"
+
 template<typename T>
-class AbstractManager {
+class AbstractManager : public Updatable {
 protected:
 	// Constructeur/destructeur
 	AbstractManager() {}
-	~AbstractManager() {}
 public:
 	// Interface publique
 	static T *getInstance() {
