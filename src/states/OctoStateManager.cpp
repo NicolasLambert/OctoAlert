@@ -27,20 +27,22 @@ OctoStateManager::OctoStateManager() :
 }
 
 void OctoStateManager::onNewInputState(uint8_t newState) {
-	if (newState == BTN_OCTOALERT) {
-		changeState(m_octoAlertState);
-	} else if (newState == BTN_COUNTDOWN) {
-		changeState(m_countDownState);
-	} else if (newState == BTN_CPTBARNAC) {
-		changeState(m_captainBarnaclesState);
-	} else if (newState == BTN_TWEAK) {
-		changeState(m_tweakState);
-	} else if (newState == BTN_KWAZII) {
-		changeState(m_kwaziiState);
-	} else if (newState == BTN_PESO) {
-		changeState(m_pesoState);
-	} else if (newState == (BTN_PESO | BTN_KWAZII)) {
-		changeState(m_simonState);
+	if (!m_currentState->shouldStayInThisState(newState)) {
+		if (newState == BTN_OCTOALERT) {
+			changeState(m_octoAlertState);
+		} else if (newState == BTN_COUNTDOWN) {
+			changeState(m_countDownState);
+		} else if (newState == BTN_CPTBARNAC) {
+			changeState(m_captainBarnaclesState);
+		} else if (newState == BTN_TWEAK) {
+			changeState(m_tweakState);
+		} else if (newState == BTN_KWAZII) {
+			changeState(m_kwaziiState);
+		} else if (newState == BTN_PESO) {
+			changeState(m_pesoState);
+		} else if (newState == (BTN_PESO | BTN_KWAZII)) {
+			changeState(m_simonState);
+		}
 	}
 }
 

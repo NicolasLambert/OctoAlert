@@ -62,6 +62,11 @@ void SimonState::update() {
 	}
 }
 
+bool SimonState::shouldStayInThisState(uint8_t newButtonsStates) {
+	return (newButtonsStates == BTN_CPTBARNAC) || (newButtonsStates == BTN_TWEAK)
+		|| (newButtonsStates == BTN_KWAZII) || (newButtonsStates == BTN_PESO);
+}
+
 bool SimonState::isFinished() {
 	return m_lastStep >= STEP_COUNT;
 }

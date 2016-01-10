@@ -9,6 +9,7 @@
 #define SIMONSTATE_H_
 
 #include "SoundState.h"
+#include "../io/input/InputManager.h"
 #include "../../Libraries/Adafruit_NeoPixel/Adafruit_NeoPixel.h"
 
 #define STEP_INTERVAL 1000
@@ -21,6 +22,7 @@ public:
 	void activate();
 	void update();
 	bool isFinished();
+	bool shouldStayInThisState(uint8_t newButtonsStates);
 private:
 	void colorQuarter(int quarterId);
 	void generateMusicScore();
