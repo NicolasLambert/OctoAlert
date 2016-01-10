@@ -14,7 +14,7 @@ void CountDownState::activate() {
 	SoundState::activate();
 	m_lastStep = 1;
 	m_lastStepTime = 0UL;
-	IOManager::getInstance()->m_startLed->off();
+	OutputManager::getInstance()->m_startLed->off();
 }
 
 void CountDownState::update(unsigned long currentTime) {
@@ -27,23 +27,23 @@ void CountDownState::update(unsigned long currentTime) {
 			break;
 		case 2:
 			// First beep
-			IOManager::getInstance()->m_red1Led->on();
+			OutputManager::getInstance()->m_red1Led->on();
 			break;
 		case 3:
 			// Second beep
-			IOManager::getInstance()->m_red2Led->on();
+			OutputManager::getInstance()->m_red2Led->on();
 			break;
 		case 4:
 			// Third beep
-			IOManager::getInstance()->m_red3Led->on();
+			OutputManager::getInstance()->m_red3Led->on();
 			break;
 		case 5:
 			// Fourth beep
-			IOManager::getInstance()->m_orangeLed->on();
+			OutputManager::getInstance()->m_orangeLed->on();
 			break;
 		case 6:
 			// Fifth beep
-			IOManager::getInstance()->m_greenLed->on();
+			OutputManager::getInstance()->m_greenLed->on();
 			/* no break */
 		default:
 			m_lastStep = 0;

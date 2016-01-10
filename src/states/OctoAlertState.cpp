@@ -13,5 +13,5 @@ OctoAlertState::OctoAlertState(char const * const mp3Path) :
 
 void OctoAlertState::activate() {
 	SoundState::activate();
-	IOManager::getInstance()->m_octoAlertLeds->smoothBlink(m_yellow);
+	OutputManager::getInstance()->m_octoAlertLeds->smoothBlink(m_yellow);
 }

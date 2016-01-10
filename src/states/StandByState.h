@@ -9,7 +9,7 @@
 #define STANDBYSTATE_H_
 
 #include "AbstractState.h"
-#include "../io/IOManager.h"
+#include "../io/output/OutputManager.h"
 
 class StandByState: public AbstractState {
 public:

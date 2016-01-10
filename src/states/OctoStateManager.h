@@ -8,7 +8,7 @@
 #ifndef OCTOSTATEMANAGER_H_
 #define OCTOSTATEMANAGER_H_
 
-#include "../io/IOManager.h"
+#include "../io/input/InputManager.h"
 #include "OctoAlertState.h"
 #include "StandByState.h"
 #include "CountDownState.h"

@@ -23,7 +23,7 @@ OctoStateManager::OctoStateManager() :
 
 {
 	// Set listeners
-	IOManager::getInstance()->setListener(this);
+	InputManager::getInstance()->setListener(this);
 
 	// Initial state
 	changeState(m_standByState);
@@ -48,7 +48,6 @@ void OctoStateManager::onNewInputState(uint8_t newState) {
 }
 
 void OctoStateManager::update(unsigned long currentTime) {
-	IOManager::getInstance()->update(currentTime);
 	AbstractState* nextState = m_currentState->getNextState();
 	if (nextState != m_currentState) {
 		changeState(nextState);

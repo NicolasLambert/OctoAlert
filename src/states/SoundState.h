@@ -8,7 +8,8 @@
 #ifndef SOUNDSTATE_H_
 #define SOUNDSTATE_H_
 
-#include "../io/IOManager.h"
+#include <SD.h>
+#include "../io/output/OutputManager.h"
 #include "AbstractState.h"
 
 class SoundState: public AbstractState {

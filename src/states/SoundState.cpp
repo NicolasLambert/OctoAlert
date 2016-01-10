@@ -35,12 +35,12 @@ void SoundState::activate() {
 		m_fileName[m_trackNumberPosition] = (char) (((int) '0') + m_lastIndex);
 		Serial.print("Play--> ");
 		Serial.println(m_fileName);
-		IOManager::getInstance()->m_musicPlayer->playFile(m_fileName);
+		OutputManager::getInstance()->m_musicPlayer->playFile(m_fileName);
 	}
 }
 
 AbstractState * SoundState::getNextState() {
-	if (IOManager::getInstance()->m_musicPlayer->isPlaying()) {
+	if (OutputManager::getInstance()->m_musicPlayer->isPlaying()) {
 		return this;
 	}
 	return OctoStateManager::getInstance()->m_standByState;

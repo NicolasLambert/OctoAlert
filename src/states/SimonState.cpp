@@ -46,15 +46,15 @@ void SimonState::colorQuarter(int quarterId) {
 	// Play sound
 	SoundState::activate();
 	// Light quarter
-	IOManager::getInstance()->m_octoAlertLeds->colorQuarter(quarterId, m_colors[quarterId]);
+	OutputManager::getInstance()->m_octoAlertLeds->colorQuarter(quarterId, m_colors[quarterId]);
 }
 
 
 void SimonState::update(unsigned long currentTime) {
 	AbstractState::update(currentTime);
 	if (currentTime - m_lastStepTime > SOUND_DURATION) {
-		IOManager::getInstance()->m_musicPlayer->stopPlaying();
-		IOManager::getInstance()->m_octoAlertLeds->offAll();
+		OutputManager::getInstance()->m_musicPlayer->stopPlaying();
+		OutputManager::getInstance()->m_octoAlertLeds->offAll();
 	}
 	if (currentTime - m_lastStepTime > STEP_INTERVAL && m_lastStep<STEP_COUNT) {
 		m_lastStepTime = currentTime;

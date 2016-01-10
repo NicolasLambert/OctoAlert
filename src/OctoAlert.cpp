@@ -6,10 +6,14 @@ void setup() {
 	Serial.println("Start OctoAlert Device");
 
 	// Init shield and neopixels
-	IOManager::getInstance();
+	InputManager::getInstance();
+	OutputManager::getInstance();
 }
 
 void loop() {
 	// Update state manager
-	OctoStateManager::getInstance()->update(millis());
+	unsigned long currentTime = millis();
+	InputManager::getInstance()->update(currentTime);
+	OctoStateManager::getInstance()->update(currentTime);
+	OutputManager::getInstance()->update(currentTime);
 }

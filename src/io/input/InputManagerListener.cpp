@@ -7,12 +7,6 @@
 
 #include "InputManagerListener.h"
 
-InputManagerListener::InputManagerListener() {
-	// TODO Auto-generated constructor stub
-
-}
-
-InputManagerListener::~InputManagerListener() {
-	// TODO Auto-generated destructor stub
-}
+InputManagerListener::InputManagerListener() {}
+InputManagerListener::~InputManagerListener() {}
 
