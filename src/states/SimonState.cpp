@@ -47,7 +47,6 @@ void SimonState::colorQuarter(int quarterId) {
 	OutputManager::getInstance()->m_octoAlertLeds->colorQuarter(quarterId, m_colors[quarterId]);
 }
 
-
 void SimonState::update() {
 	AbstractState::update();
 	unsigned long currentTime = millis();
@@ -63,8 +62,8 @@ void SimonState::update() {
 }
 
 bool SimonState::shouldStayInThisState(uint8_t newButtonsStates) {
-	return (newButtonsStates == BTN_CPTBARNAC) || (newButtonsStates == BTN_TWEAK)
-		|| (newButtonsStates == BTN_KWAZII) || (newButtonsStates == BTN_PESO);
+	return	(__builtin_popcount(newButtonsStates) == 1) &&// One button pressed only
+			(newButtonsStates & (BTN_CPTBARNAC | BTN_TWEAK | BTN_KWAZII | BTN_PESO)); // Button from simon games
 }
 
 bool SimonState::isFinished() {
