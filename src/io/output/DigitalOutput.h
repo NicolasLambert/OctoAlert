@@ -9,8 +9,9 @@
 #define DIGITALOUTPUT_H_
 
 #include "../DigitalIO.h"
+#include "../../Updatable.h"
 
-class DigitalOutput: public DigitalIO {
+class DigitalOutput: public DigitalIO, public Updatable {
 public:
 	DigitalOutput(int const pin, bool const reversed);
 	void setState(bool const newState);

@@ -7,6 +7,4 @@
 
 #include "Button.h"
 
-Button::Button(int const pin, uint8_t mask, unsigned int debounceDelay) :
-		DigitalInput(pin, true, mask, debounceDelay) {
-}
+Button::Button(int const pin) : DigitalInput(pin, true) {}

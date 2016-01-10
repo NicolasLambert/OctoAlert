@@ -10,7 +10,6 @@
 
 #include "../../AbstractManager.h"
 #include "Button.h"
-#include "InputListener.h"
 #include "InputManagerListener.h"
 
 #define BTN_OCTOALERT 1
@@ -19,18 +18,22 @@
 #define BTN_TWEAK     8
 #define BTN_KWAZII    16
 #define BTN_PESO      32
+#define DEFAULT_COMBINED_DEBOUNCE_DELAY 100
 
-class InputManager: public AbstractManager<InputManager>, public InputListener {
+class InputManager: public AbstractManager<InputManager> {
 public:
 	InputManager();
 	void setListener(InputManagerListener * listener);
 	void update(unsigned long currentTime);
+	uint8_t getState();
 
 private:
 	void onNewInputState(uint8_t mask, bool newState);
-	uint8_t m_buttonStates;
+	unsigned long m_lastChangeTime;
+	const unsigned int m_debounceDelay;
+	uint8_t m_lastState;
+	uint8_t m_currentState;
 	InputManagerListener * m_listener;
-	// Inputs
 	Button * const m_octoAlertButton;
 	Button * const m_countDownButton;
 	Button * const m_captainBarnaclesButton;

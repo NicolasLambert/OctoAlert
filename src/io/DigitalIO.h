@@ -9,13 +9,13 @@
 #define DIGITALIO_H_
 
 #include "Arduino.h"
-#include "../Updatable.h"
 
 class DoorStateManager;
 
-class DigitalIO : public Updatable {
+class DigitalIO {
 public:
 	DigitalIO(int const pin, bool const reversed = false);
+	virtual ~DigitalIO();
 	virtual bool const getState() = 0;
 protected:
 	int const m_pin;

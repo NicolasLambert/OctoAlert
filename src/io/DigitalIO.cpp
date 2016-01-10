@@ -8,5 +8,5 @@
 #include "DigitalIO.h"
 
 DigitalIO::DigitalIO(int const pin, bool const reversed) :
-		m_pin(pin), m_reversed(reversed) {
-}
+		m_pin(pin), m_reversed(reversed) {}
+DigitalIO::~DigitalIO() {}
