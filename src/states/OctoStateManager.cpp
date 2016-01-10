@@ -41,7 +41,11 @@ void OctoStateManager::onNewInputState(uint8_t newState) {
 		} else if (newState == BTN_PESO) {
 			changeState(m_pesoState);
 		} else if (newState == (BTN_PESO | BTN_KWAZII)) {
-			changeState(m_simonState);
+			if (m_currentState == m_simonState) {
+				changeState(m_standByState);
+			} else {
+				changeState(m_simonState);
+			}
 		}
 	}
 }
