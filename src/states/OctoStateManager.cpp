@@ -48,8 +48,6 @@ void OctoStateManager::update(unsigned long currentTime) {
 	AbstractState* nextState = m_currentState->getNextState();
 	if (nextState != m_currentState) {
 		changeState(nextState);
-		// We recompute millis instead of use the currentTime because the stop/play delay is too long
-		currentTime = millis();
 	}
 
 	// Update count down procedure
@@ -60,6 +58,7 @@ void OctoStateManager::changeState(AbstractState* newState) {
 	m_currentState = newState;
 	if (m_standByState != newState) {
 		// Stop music and restore stand by led states
+		OutputManager::getInstance()->m_musicPlayer->stopPlaying();
 		m_standByState->activate();
 	}
 	newState->activate();
