@@ -10,10 +10,14 @@
 OctoAlertLeds::OctoAlertLeds(uint16_t pin) :
 				m_strip(new Adafruit_NeoPixel(41, pin, NEO_GRB + NEO_KHZ800)),
 				m_smoothBlinkWay(0),
+				m_blinkStateChangeCountDown(-1),
 				m_currentBrightness(0),
+				m_quarterId(-1),
 				m_rFactor(100),
 				m_gFactor(100),
 				m_bFactor(100),
+				m_minBright(MIN_BRIGHT_BLINK),
+				m_maxBright(MAX_BRIGHT_BLINK),
 				off(Adafruit_NeoPixel::Color(0, 0, 0)) {
 	m_strip->begin();
 	m_strip->setBrightness(70);
@@ -22,6 +26,7 @@ OctoAlertLeds::OctoAlertLeds(uint16_t pin) :
 
 void OctoAlertLeds::colorAll(uint32_t color) {
 	m_smoothBlinkWay = 0;
+	m_quarterId = -1;
 	internalColorAll(color);
 }
 
@@ -29,20 +34,8 @@ void OctoAlertLeds::offAll() {
 	colorAll(off);
 }
 
-void OctoAlertLeds::colorQuarter(int quarterId, uint32_t color) {
-	m_smoothBlinkWay = 0;
-	for (uint16_t i = 0; i < m_strip->numPixels(); i++) {
-		if (isInQuarter(quarterId, i)) {
-			m_strip->setPixelColor(i, color);
-		} else {
-			m_strip->setPixelColor(i, off);
-		}
-	}
-	m_strip->show();
-}
-
-bool OctoAlertLeds::isInQuarter(int quarterId, int ledId) {
-	switch (quarterId) {
+bool OctoAlertLeds::isInQuarter(uint8_t ledId) {
+	switch (m_quarterId) {
 	case TOP_RIGHT_QUARTER:
 		return (ledId>=15 && ledId<=20) || (ledId>=26 && ledId<= 29);
 	case BOTTOM_RIGHT_QUARTER:
@@ -51,18 +44,24 @@ bool OctoAlertLeds::isInQuarter(int quarterId, int ledId) {
 		return (ledId>=3 && ledId<=8) || (ledId>=34 && ledId<= 37);
 	case TOP_LEFT_QUARTER:
 		return (ledId>=9 && ledId<=14) || (ledId>=30 && ledId<= 33);
+	case ALL_QUARTER:
+		return true;
 	}
 	return false;
 }
 
-void OctoAlertLeds::smoothBlink(uint32_t color) {
+void OctoAlertLeds::smoothBlink(uint32_t color, int8_t quarterId, uint16_t blinkStateChangeCount, uint8_t minBright, uint8_t maxBright) {
+	m_blinkStateChangeCountDown = (blinkStateChangeCount==0?-1:blinkStateChangeCount);
+	m_quarterId = quarterId;
+	m_minBright = minBright;
+	m_maxBright = maxBright;
 	uint8_t r = (uint8_t) (color >> 16);
 	uint8_t g = (uint8_t) (color >> 8);
 	uint8_t b = (uint8_t) color;
-	smoothBlink(r, g, b);
+	internalSmoothBlink(r, g, b);
 }
 
-void OctoAlertLeds::smoothBlink(int r, int g, int b) {
+void OctoAlertLeds::internalSmoothBlink(int r, int g, int b) {
 	int maxSmooth = max(max(r, g), b);
 	if (maxSmooth == 0) {
 		m_rFactor = 100;
@@ -81,8 +80,8 @@ void OctoAlertLeds::smoothBlink(int r, int g, int b) {
 		m_gFactor = g * 100 / b;
 		m_bFactor = 100;
 	}
-	m_smoothBlinkWay = -1;
-	m_currentBrightness = MAX_BRIGHT_BLINK;
+	m_smoothBlinkWay = 1;
+	m_currentBrightness = m_minBright;
 }
 
 void OctoAlertLeds::update() {
@@ -92,8 +91,13 @@ void OctoAlertLeds::update() {
 		int b = m_currentBrightness * m_bFactor / 100;
 		internalColorAll(r, g, b);
 		m_currentBrightness += m_smoothBlinkWay;
-		if (m_currentBrightness <= MIN_BRIGHT_BLINK || m_currentBrightness >= MAX_BRIGHT_BLINK) {
+		if (m_currentBrightness <= m_minBright || m_currentBrightness >= m_maxBright) {
 			m_smoothBlinkWay *= -1;
+			m_blinkStateChangeCountDown--;
+			if (m_blinkStateChangeCountDown==0) {
+				// The blinker counter is empty, stop blinking
+				m_smoothBlinkWay = 0;
+			}
 		}
 	}
 }
@@ -108,9 +112,17 @@ void OctoAlertLeds::internalColorAll(uint32_t color) {
 void OctoAlertLeds::internalColorAll(uint8_t r, uint8_t g, uint8_t b ) {
 	int lastIndex = m_strip->numPixels() - 1;
 	for (uint16_t i = 0; i < lastIndex; i++) {
-		m_strip->setPixelColor(i, r, g, b);
+		if (isInQuarter(i)) {
+			m_strip->setPixelColor(i, r, g, b);
+		} else {
+			m_strip->setPixelColor(i, off);
+		}
 	}
 	// last Led (which is in the center) is in RGB mode instead of GRB
-	m_strip->setPixelColor(lastIndex, g, r, b);
+	if (isInQuarter(lastIndex)) {
+		m_strip->setPixelColor(lastIndex, g, r, b);
+	} else {
+		m_strip->setPixelColor(lastIndex, off);
+	}
 	m_strip->show();
 }

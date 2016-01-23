@@ -15,6 +15,11 @@
 #define STEP_INTERVAL 1000
 #define SOUND_DURATION 800
 #define STEP_COUNT 20
+#define STATE_INTRO 0
+#define STATE_PLAY 1
+#define STATE_TEST 2
+#define STATE_WIN 3
+#define STATE_FAIL 4
 
 class SimonState: public SoundState {
 public:
@@ -22,14 +27,19 @@ public:
 	void activate();
 	void update();
 	bool isFinished();
-	bool shouldStayInThisState(uint8_t newButtonsStates);
+	bool handleButtonPressed(uint8_t newButtonsStates);
 private:
-	void colorQuarter(int quarterId);
+	void playOneNote();
 	void generateMusicScore();
+	bool isDelayPassed(uint16_t delay);
+	void switchState(uint8_t newState);
 	const uint32_t m_colors[4];
-	int m_musicScore[STEP_COUNT];
-	unsigned long m_lastStepTime;
-	int m_lastStep;
+	const uint8_t m_buttonByQuarter[4];
+	uint8_t m_musicScore[STEP_COUNT];
+	int8_t m_nextScoreStep;
+	int8_t m_lastSuccessfullScoreStep;
+	unsigned long m_lastScoreStepTime;
+	uint8_t m_currentState;
 };
 
 #endif /* SIMONSTATE_H_ */

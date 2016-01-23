@@ -16,7 +16,8 @@ public:
 	AbstractState();
 	void update();
 	virtual bool isFinished() = 0;
-	virtual bool shouldStayInThisState(uint8_t newButtonsStates);
+	// Return true to stay in the current state
+	virtual bool handleButtonPressed(uint8_t newButtonsStates);
 };
 
 #endif /* ABSTRACTSTATE_H_ */

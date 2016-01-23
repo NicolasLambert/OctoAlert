@@ -27,7 +27,7 @@ OctoStateManager::OctoStateManager() :
 }
 
 void OctoStateManager::onNewInputState(uint8_t newState) {
-	if (!m_currentState->shouldStayInThisState(newState)) {
+	if (!m_currentState->handleButtonPressed(newState)) {
 		if (newState == BTN_OCTOALERT) {
 			changeState(m_octoAlertState);
 		} else if (newState == BTN_COUNTDOWN) {
