@@ -30,7 +30,7 @@ public:
 private:
 	void onNewInputState(uint8_t mask, bool newState);
 	unsigned long m_lastChangeTime;
-	const unsigned int m_debounceDelay;
+	const uint8_t m_debounceDelay;
 	uint8_t m_lastState;
 	uint8_t m_currentState;
 	InputManagerListener * m_listener;

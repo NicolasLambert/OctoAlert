@@ -13,14 +13,14 @@
 
 class DigitalOutput: public DigitalIO, public Updatable {
 public:
-	DigitalOutput(int const pin, bool const reversed);
+	DigitalOutput(uint8_t const pin, bool const reversed);
 	void setState(bool const newState);
 	bool const getState();
 	virtual void on();
 	virtual void off();
 	void toggle();
 private:
-	int m_lastState;
+	int8_t m_lastState;
 };
 
 #endif /* DIGITALOUTPUT_H_ */

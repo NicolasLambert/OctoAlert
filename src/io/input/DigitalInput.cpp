@@ -7,7 +7,7 @@
 
 #include "DigitalInput.h"
 
-DigitalInput::DigitalInput(int const pin, bool const reversed) :
+DigitalInput::DigitalInput(uint8_t const pin, bool const reversed) :
 		DigitalIO(pin, reversed) {
 	pinMode(pin, INPUT_PULLUP);
 }

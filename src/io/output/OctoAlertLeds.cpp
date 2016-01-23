@@ -61,8 +61,8 @@ void OctoAlertLeds::smoothBlink(uint32_t color, int8_t quarterId, uint16_t blink
 	internalSmoothBlink(r, g, b);
 }
 
-void OctoAlertLeds::internalSmoothBlink(int r, int g, int b) {
-	int maxSmooth = max(max(r, g), b);
+void OctoAlertLeds::internalSmoothBlink(uint8_t r, uint8_t g, uint8_t b) {
+	uint8_t maxSmooth = max(max(r, g), b);
 	if (maxSmooth == 0) {
 		m_rFactor = 100;
 		m_gFactor = 100;
@@ -86,9 +86,9 @@ void OctoAlertLeds::internalSmoothBlink(int r, int g, int b) {
 
 void OctoAlertLeds::update() {
 	if (m_smoothBlinkWay != 0) {
-		int r = m_currentBrightness * m_rFactor / 100;
-		int g = m_currentBrightness * m_gFactor / 100;
-		int b = m_currentBrightness * m_bFactor / 100;
+		uint8_t r = m_currentBrightness * m_rFactor / 100;
+		uint8_t g = m_currentBrightness * m_gFactor / 100;
+		uint8_t b = m_currentBrightness * m_bFactor / 100;
 		internalColorAll(r, g, b);
 		m_currentBrightness += m_smoothBlinkWay;
 		if (m_currentBrightness <= m_minBright || m_currentBrightness >= m_maxBright) {
@@ -110,7 +110,7 @@ void OctoAlertLeds::internalColorAll(uint32_t color) {
 }
 
 void OctoAlertLeds::internalColorAll(uint8_t r, uint8_t g, uint8_t b ) {
-	int lastIndex = m_strip->numPixels() - 1;
+	uint8_t lastIndex = m_strip->numPixels() - 1;
 	for (uint16_t i = 0; i < lastIndex; i++) {
 		if (isInQuarter(i)) {
 			m_strip->setPixelColor(i, r, g, b);

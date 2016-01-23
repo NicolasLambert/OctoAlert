@@ -10,7 +10,7 @@
 
 #include "SoundState.h"
 
-static unsigned int const cntDwnDelay[6] = { 0, 1950, 950, 950, 950, 950 };
+static uint16_t const cntDwnDelay[6] = { 0, 1950, 950, 950, 950, 950 };
 
 class CountDownState: public SoundState {
 public:
@@ -19,7 +19,7 @@ public:
 	void update();
 private:
 	unsigned long m_lastStepTime;
-	int m_lastStep;
+	uint8_t m_lastStep;
 };
 
 #endif /* COUNTDOWNSTATE_H_ */

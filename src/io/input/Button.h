@@ -12,7 +12,7 @@
 
 class Button: public DigitalInput {
 public:
-	Button(int const pin);
+	Button(uint8_t const pin);
 };
 
 #endif /* BUTTON_H_ */

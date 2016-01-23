@@ -14,7 +14,7 @@
 
 class Led: public DigitalOutput {
 public:
-	Led(int const pin);
+	Led(uint8_t const pin);
 	void blink();
 	void on();
 	void off();

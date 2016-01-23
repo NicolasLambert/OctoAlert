@@ -7,7 +7,7 @@
 
 #include "DigitalOutput.h"
 
-DigitalOutput::DigitalOutput(int const pin, bool const reversed) :
+DigitalOutput::DigitalOutput(uint8_t const pin, bool const reversed) :
 		DigitalIO(pin, reversed), m_lastState(-1) {
 	pinMode(m_pin, OUTPUT);
 	off();

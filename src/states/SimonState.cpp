@@ -37,7 +37,7 @@ void SimonState::generateMusicScore() {
 	m_lastScoreStepTime = 0;
 
 	// Generate new music score
-	for(int i=0;i<STEP_COUNT;i++) {
+	for(uint8_t i=0;i<STEP_COUNT;i++) {
 		m_musicScore[i]  = random(4);
 	}
 }

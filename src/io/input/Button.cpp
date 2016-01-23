@@ -7,4 +7,4 @@
 
 #include "Button.h"
 
-Button::Button(int const pin) : DigitalInput(pin, true) {}
+Button::Button(uint8_t const pin) : DigitalInput(pin, true) {}

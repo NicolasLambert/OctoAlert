@@ -18,10 +18,10 @@ public:
 	void activate();
 	bool isFinished();
 protected:
-	unsigned int m_lastIndex;
+	uint8_t m_lastIndex;
 private:
-	unsigned int m_trackNumberPosition;
-	unsigned int m_maxIndex;
+	uint8_t m_trackNumberPosition;
+	uint8_t m_maxIndex;
 	char m_fileName[13];
 };
 

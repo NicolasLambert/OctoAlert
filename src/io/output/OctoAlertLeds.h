@@ -31,16 +31,16 @@ public:
 private:
 	void internalColorAll(uint32_t color);
 	void internalColorAll(uint8_t r, uint8_t g, uint8_t b);
-	void internalSmoothBlink(int r, int g, int b);
+	void internalSmoothBlink(uint8_t r, uint8_t g, uint8_t b);
 	bool isInQuarter(uint8_t ledId);
 	Adafruit_NeoPixel * const m_strip;
 	int8_t m_quarterId;
 	int8_t m_smoothBlinkWay; // Light increase or decrease or disable
 	int8_t m_blinkStateChangeCountDown; // -1 means infinite blink, 2 for one blink
 	uint16_t m_currentBrightness;
-	int m_rFactor;
-	int m_gFactor;
-	int m_bFactor;
+	uint8_t m_rFactor;
+	uint8_t m_gFactor;
+	uint8_t m_bFactor;
 	const uint32_t off;
 	uint8_t m_minBright;
 	uint8_t m_maxBright;

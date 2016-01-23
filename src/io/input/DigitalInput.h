@@ -12,7 +12,7 @@
 
 class DigitalInput: public DigitalIO {
 public:
-	DigitalInput(int const pin, bool const reversed);
+	DigitalInput(uint8_t const pin, bool const reversed);
 	bool const getState();
 };
 

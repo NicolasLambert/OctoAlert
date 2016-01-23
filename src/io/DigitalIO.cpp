@@ -7,6 +7,6 @@
 
 #include "DigitalIO.h"
 
-DigitalIO::DigitalIO(int const pin, bool const reversed) :
+DigitalIO::DigitalIO(uint8_t const pin, bool const reversed) :
 		m_pin(pin), m_reversed(reversed) {}
 DigitalIO::~DigitalIO() {}

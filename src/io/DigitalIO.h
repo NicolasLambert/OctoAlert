@@ -14,11 +14,11 @@ class DoorStateManager;
 
 class DigitalIO {
 public:
-	DigitalIO(int const pin, bool const reversed = false);
+	DigitalIO(uint8_t const pin, bool const reversed = false);
 	virtual ~DigitalIO();
 	virtual bool const getState() = 0;
 protected:
-	int const m_pin;
+	uint8_t const m_pin;
 	bool const m_reversed;
 };
 

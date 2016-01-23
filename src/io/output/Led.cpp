@@ -7,7 +7,7 @@
 
 #include "Led.h"
 
-Led::Led(int const pin) :
+Led::Led(uint8_t const pin) :
 		DigitalOutput(pin, false), m_previousBlinkTime(0UL), m_isBlinking(false) {
 }
 
