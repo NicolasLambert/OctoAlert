@@ -49,6 +49,7 @@ void SimonState::playOneNote() {
 	// Select the right sound track
 	SoundState::m_lastIndex = quarterId;
 	// Play sound
+	OutputManager::getInstance()->m_musicPlayer->stopPlaying();
 	SoundState::activate();
 	// Light quarter
 	OutputManager::getInstance()->m_octoAlertLeds->smoothBlink(m_colors[quarterId], quarterId, 2);
