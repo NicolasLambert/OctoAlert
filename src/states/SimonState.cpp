@@ -48,8 +48,8 @@ void SimonState::update() {
 		switch (m_currentState) {
 		case STATE_INTRO:
 			generateMusicScore();
-			OutputManager::getInstance()->m_octoAlertLeds->smoothBlink(m_colors[1], ALL_QUARTER, 2);
-			m_lastScoreStepTime = millis();
+			play(SOUND_ID_INTRO);
+			OutputManager::getInstance()->m_octoAlertLeds->introAnimation();
 			switchState(STATE_PLAY);
 			break;
 		case STATE_PLAY:

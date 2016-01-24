@@ -26,9 +26,10 @@
 #define STATE_END 6
 
 // SOUND Ids
-#define SOUND_ID_WIN_SEQ 5
-#define SOUND_ID_FAIL 6
-#define SOUND_ID_WIN_GAME 7
+#define SOUND_ID_INTRO 5
+#define SOUND_ID_WIN_SEQ 6
+#define SOUND_ID_FAIL 7
+#define SOUND_ID_WIN_GAME 8
 
 class SimonState: public SoundState {
 public:
