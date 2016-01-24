@@ -62,11 +62,19 @@ void SimonState::update() {
 			// Do nothing, just wait for button press
 			break;
 		case STATE_WIN_SEQ:
+			play(SOUND_ID_WIN_SEQ);
+			OutputManager::getInstance()->m_octoAlertLeds->winSeqAnimation();
+			switchState(STATE_PLAY);
+			break;
 		case STATE_FAIL:
-			playResult(m_currentState == STATE_WIN_SEQ);
+			play(SOUND_ID_FAIL);
+			OutputManager::getInstance()->m_octoAlertLeds->failAnimation();
+			switchState(STATE_PLAY);
 			break;
 		case STATE_WIN_GAME:
-			playWinGame();
+			play(SOUND_ID_WIN_GAME);
+			OutputManager::getInstance()->m_octoAlertLeds->winGameAnimation();
+			switchState(STATE_END);
 			break;
 		case STATE_END:
 			// Do nothing, the state will go back to stand by at the next update
@@ -77,53 +85,19 @@ void SimonState::update() {
 
 void SimonState::playOneNote() {
 	uint8_t quarterId = m_musicScore[m_nextScoreStep];
-	m_nextScoreStep++;
-	m_lastScoreStepTime = millis();
-	// Select the right sound track
-	SoundState::m_lastIndex = quarterId;
-	// Play sound
-	OutputManager::getInstance()->m_musicPlayer->stopPlaying();
-	SoundState::activate();
-	// Light quarter
 	OutputManager::getInstance()->m_octoAlertLeds->smoothBlink(m_colors[quarterId], quarterId, 2);
+	play(quarterId);
+	m_nextScoreStep++;
 }
 
-void SimonState::playResult(bool isWin) {
+void SimonState::play(uint8_t soundId) {
 	m_lastScoreStepTime = millis();
 	// Select the right sound track
-	SoundState::m_lastIndex = isWin ? SOUND_ID_WIN_SEQ : SOUND_ID_FAIL;
+	SoundState::m_lastIndex = soundId;
 	// Play sound
 	OutputManager::getInstance()->m_musicPlayer->stopPlaying();
 	SoundState::activate();
-	// Play light animation
-	if (isWin) {
-		OutputManager::getInstance()->m_octoAlertLeds->winSeqAnimation();
-	} else {
-		OutputManager::getInstance()->m_octoAlertLeds->failAnimation();
-	}
-
-	switchState(STATE_PLAY);
 }
-
-void SimonState::playWinGame() {
-	m_lastScoreStepTime = millis();
-	// Select the right sound track
-	SoundState::m_lastIndex = SOUND_ID_WIN_GAME;
-	// Play sound
-	OutputManager::getInstance()->m_musicPlayer->stopPlaying();
-	SoundState::activate();
-	// Play light animation
-	OutputManager::getInstance()->m_octoAlertLeds->winGameAnimation();
-	switchState(STATE_END);
-
-//	play(SOUND_ID_WIN_GAME, [] ( OctoAlertLeds * leds ) {
-//		leds->winGameAnimation();
-//	});
-}
-
-//void SimonState::play(uint8_t soundId, LightActivator lightActivator) {
-//	lightActivator(OutputManager::getInstance()->m_octoAlertLeds);
-//}
 
 
 void SimonState::switchState(uint8_t newState) {

@@ -30,8 +30,6 @@
 #define SOUND_ID_FAIL 6
 #define SOUND_ID_WIN_GAME 7
 
-//typedef void(*LightActivator)(OctoAlertLeds*);
-
 class SimonState: public SoundState {
 public:
 	SimonState(char const * const mp3Path);
@@ -44,14 +42,12 @@ private:
 	void generateMusicScore();
 	bool isDelayPassed(uint16_t delay);
 	void switchState(uint8_t newState);
-	void playResult(bool isWin);
-	void playWinGame();
-//	void play(uint8_t soundId, LightActivator lightActivator);
+	void play(uint8_t soundId);
 	const uint32_t m_colors[4];
 	const uint8_t m_buttonByQuarter[4];
 	uint8_t m_musicScore[STEP_TO_WIN_COUNT];
-	int8_t m_nextScoreStep;
-	int8_t m_lastSuccessfullScoreStep;
+	uint8_t m_nextScoreStep;
+	uint8_t m_lastSuccessfullScoreStep;
 	unsigned long m_lastScoreStepTime;
 	uint8_t m_currentState;
 };
