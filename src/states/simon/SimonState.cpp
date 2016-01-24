@@ -9,16 +9,21 @@
 
 SimonState::SimonState(char const * const mp3Path) :
 		SoundState(mp3Path),
-		m_colors({
-			Adafruit_NeoPixel::Color(255, 0, 0),
-			Adafruit_NeoPixel::Color(0, 0, 255),
-			Adafruit_NeoPixel::Color(255, 255, 0),
-			Adafruit_NeoPixel::Color(0, 255, 0)}),
 		m_buttonByQuarter({BTN_TWEAK, BTN_PESO, BTN_KWAZII, BTN_CPTBARNAC}),
 		m_nextScoreStep(0),
 		m_lastSuccessfullScoreStep(0),
 		m_lastScoreStepTime(0),
-		m_currentState(STATE_INTRO) {
+		m_currentState(STATE_INTRO),
+		m_introAnimation(new IntroAnimation()),
+		m_winSequenceAnimation(new WinSequenceAnimation()),
+		m_failAnimation(new FailAnimation()),
+		m_winGameAnimation(new WinGameAnimation()),
+		m_playNoteAnimation({
+			new PlayNoteAnimation(Adafruit_NeoPixel::Color(255, 0, 0), LED_MASK_TOP_RIGHT_QUARTER),
+			new PlayNoteAnimation(Adafruit_NeoPixel::Color(0, 0, 255), LED_MASK_BOTTOM_RIGHT_QUARTER),
+			new PlayNoteAnimation(Adafruit_NeoPixel::Color(255, 255, 0), LED_MASK_BOTTOM_LEFT_QUARTER),
+			new PlayNoteAnimation(Adafruit_NeoPixel::Color(0, 255, 0), LED_MASK_TOP_LEFT_QUARTER)})
+		{
 	// Analog input pin 0 is unconnected, random analog
 	// noise will cause the call to randomSeed() to generate
 	// different seed numbers each time the sketch runs.
@@ -49,7 +54,7 @@ void SimonState::update() {
 		case STATE_INTRO:
 			generateMusicScore();
 			play(SOUND_ID_INTRO);
-			OutputManager::getInstance()->m_octoAlertLeds->introAnimation();
+			OutputManager::getInstance()->m_octoAlertLeds->animate(m_introAnimation);
 			switchState(STATE_PLAY);
 			break;
 		case STATE_PLAY:
@@ -63,17 +68,17 @@ void SimonState::update() {
 			break;
 		case STATE_WIN_SEQ:
 			play(SOUND_ID_WIN_SEQ);
-			OutputManager::getInstance()->m_octoAlertLeds->winSeqAnimation();
+			OutputManager::getInstance()->m_octoAlertLeds->animate(m_winSequenceAnimation);
 			switchState(STATE_PLAY);
 			break;
 		case STATE_FAIL:
 			play(SOUND_ID_FAIL);
-			OutputManager::getInstance()->m_octoAlertLeds->failAnimation();
+			OutputManager::getInstance()->m_octoAlertLeds->animate(m_failAnimation);
 			switchState(STATE_PLAY);
 			break;
 		case STATE_WIN_GAME:
 			play(SOUND_ID_WIN_GAME);
-			OutputManager::getInstance()->m_octoAlertLeds->winGameAnimation();
+			OutputManager::getInstance()->m_octoAlertLeds->animate(m_winGameAnimation);
 			switchState(STATE_END);
 			break;
 		case STATE_END:
@@ -85,7 +90,7 @@ void SimonState::update() {
 
 void SimonState::playOneNote() {
 	uint8_t quarterId = m_musicScore[m_nextScoreStep];
-	OutputManager::getInstance()->m_octoAlertLeds->smoothBlink(m_colors[quarterId], quarterId, 2);
+	OutputManager::getInstance()->m_octoAlertLeds->animate(m_playNoteAnimation[quarterId]);
 	play(quarterId);
 	m_nextScoreStep++;
 }

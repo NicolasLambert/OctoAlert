@@ -9,10 +9,10 @@
 #define OCTOSTATEMANAGER_H_
 
 #include "../io/input/InputManager.h"
-#include "OctoAlertState.h"
+#include "octoalert/OctoAlertState.h"
 #include "StandByState.h"
 #include "CountDownState.h"
-#include "SimonState.h"
+#include "simon/SimonState.h"
 
 class OctoStateManager: public AbstractManager<OctoStateManager>, public InputManagerListener {
 public:

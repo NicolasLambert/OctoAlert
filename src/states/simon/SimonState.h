@@ -5,12 +5,17 @@
  *      Author: nicolaslambert
  */
 
-#ifndef SIMONSTATE_H_
-#define SIMONSTATE_H_
+#ifndef SRC_STATES_SIMON_SIMONSTATE_H_
+#define SRC_STATES_SIMON_SIMONSTATE_H_
 
-#include "SoundState.h"
-#include "../io/input/InputManager.h"
-#include "../../Libraries/Adafruit_NeoPixel/Adafruit_NeoPixel.h"
+#include "../SoundState.h"
+#include "../../io/input/InputManager.h"
+#include "../../../Libraries/Adafruit_NeoPixel/Adafruit_NeoPixel.h"
+#include "IntroAnimation.h"
+#include "WinSequenceAnimation.h"
+#include "FailAnimation.h"
+#include "WinGameAnimation.h"
+#include "PlayNoteAnimation.h"
 
 // Durations
 #define STEP_INTERVAL 1000
@@ -44,13 +49,17 @@ private:
 	bool isDelayPassed(uint16_t delay);
 	void switchState(uint8_t newState);
 	void play(uint8_t soundId);
-	const uint32_t m_colors[4];
 	const uint8_t m_buttonByQuarter[4];
 	uint8_t m_musicScore[STEP_TO_WIN_COUNT];
 	uint8_t m_nextScoreStep;
 	uint8_t m_lastSuccessfullScoreStep;
 	unsigned long m_lastScoreStepTime;
 	uint8_t m_currentState;
+	IntroAnimation * m_introAnimation;
+	WinSequenceAnimation * m_winSequenceAnimation;
+	FailAnimation * m_failAnimation;
+	WinGameAnimation * m_winGameAnimation;
+	PlayNoteAnimation * m_playNoteAnimation[4];
 };
 
-#endif /* SIMONSTATE_H_ */
+#endif /* SRC_STATES_SIMON_SIMONSTATE_H_ */
