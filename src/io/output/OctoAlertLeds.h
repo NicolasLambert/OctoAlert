@@ -27,6 +27,9 @@ public:
 	void update();
 	void colorAll(uint32_t color);
 	void smoothBlink(uint32_t color, int8_t quarterId = ALL_QUARTER, uint16_t blinkStateChangeCount = 0, uint8_t minBright = MIN_BRIGHT_BLINK, uint8_t maxBright = MAX_BRIGHT_BLINK);
+	void winSeqAnimation();
+	void failAnimation();
+	void winGameAnimation();
 	void offAll();
 private:
 	void internalColorAll(uint32_t color);
@@ -42,6 +45,8 @@ private:
 	uint8_t m_gFactor;
 	uint8_t m_bFactor;
 	const uint32_t off;
+	const uint32_t winColor;
+	const uint32_t failColor;
 	uint8_t m_minBright;
 	uint8_t m_maxBright;
 };

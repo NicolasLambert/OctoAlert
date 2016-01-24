@@ -18,7 +18,9 @@ OctoAlertLeds::OctoAlertLeds(uint16_t pin) :
 				m_bFactor(100),
 				m_minBright(MIN_BRIGHT_BLINK),
 				m_maxBright(MAX_BRIGHT_BLINK),
-				off(Adafruit_NeoPixel::Color(0, 0, 0)) {
+				off(Adafruit_NeoPixel::Color(0, 0, 0)),
+				winColor(Adafruit_NeoPixel::Color(0, 255, 0)),
+				failColor(Adafruit_NeoPixel::Color(255, 0, 0))	{
 	m_strip->begin();
 	m_strip->setBrightness(70);
 	m_strip->show(); // Initialize all pixels to 'off'
@@ -126,3 +128,16 @@ void OctoAlertLeds::internalColorAll(uint8_t r, uint8_t g, uint8_t b ) {
 	}
 	m_strip->show();
 }
+
+void OctoAlertLeds::winSeqAnimation() {
+	smoothBlink(winColor, ALL_QUARTER, 2);
+}
+
+void OctoAlertLeds::failAnimation() {
+	smoothBlink(failColor, ALL_QUARTER, 2);
+}
+
+void OctoAlertLeds::winGameAnimation() {
+	smoothBlink(winColor, ALL_QUARTER, 2);
+}
+

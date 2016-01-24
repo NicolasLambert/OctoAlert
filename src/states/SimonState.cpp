@@ -37,22 +37,9 @@ void SimonState::generateMusicScore() {
 	m_lastScoreStepTime = 0;
 
 	// Generate new music score
-	for(uint8_t i=0;i<STEP_COUNT;i++) {
+	for(uint8_t i=0;i<STEP_TO_WIN_COUNT;i++) {
 		m_musicScore[i]  = random(4);
 	}
-}
-
-void SimonState::playOneNote() {
-	uint8_t quarterId = m_musicScore[m_nextScoreStep];
-	m_nextScoreStep++;
-	m_lastScoreStepTime = millis();
-	// Select the right sound track
-	SoundState::m_lastIndex = quarterId;
-	// Play sound
-	OutputManager::getInstance()->m_musicPlayer->stopPlaying();
-	SoundState::activate();
-	// Light quarter
-	OutputManager::getInstance()->m_octoAlertLeds->smoothBlink(m_colors[quarterId], quarterId, 2);
 }
 
 void SimonState::update() {
@@ -74,16 +61,70 @@ void SimonState::update() {
 		case STATE_TEST:
 			// Do nothing, just wait for button press
 			break;
-		case STATE_WIN:
+		case STATE_WIN_SEQ:
 		case STATE_FAIL:
-			const uint32_t winOrFailColor = m_colors[m_currentState == STATE_WIN ? 3 : 0];
-			OutputManager::getInstance()->m_octoAlertLeds->smoothBlink(winOrFailColor, ALL_QUARTER, 2);
-			m_lastScoreStepTime = millis();
-			switchState(STATE_PLAY);
+			playResult(m_currentState == STATE_WIN_SEQ);
+			break;
+		case STATE_WIN_GAME:
+			playWinGame();
+			break;
+		case STATE_END:
+			// Do nothing, the state will go back to stand by at the next update
 			break;
 		}
 	}
 }
+
+void SimonState::playOneNote() {
+	uint8_t quarterId = m_musicScore[m_nextScoreStep];
+	m_nextScoreStep++;
+	m_lastScoreStepTime = millis();
+	// Select the right sound track
+	SoundState::m_lastIndex = quarterId;
+	// Play sound
+	OutputManager::getInstance()->m_musicPlayer->stopPlaying();
+	SoundState::activate();
+	// Light quarter
+	OutputManager::getInstance()->m_octoAlertLeds->smoothBlink(m_colors[quarterId], quarterId, 2);
+}
+
+void SimonState::playResult(bool isWin) {
+	m_lastScoreStepTime = millis();
+	// Select the right sound track
+	SoundState::m_lastIndex = isWin ? SOUND_ID_WIN_SEQ : SOUND_ID_FAIL;
+	// Play sound
+	OutputManager::getInstance()->m_musicPlayer->stopPlaying();
+	SoundState::activate();
+	// Play light animation
+	if (isWin) {
+		OutputManager::getInstance()->m_octoAlertLeds->winSeqAnimation();
+	} else {
+		OutputManager::getInstance()->m_octoAlertLeds->failAnimation();
+	}
+
+	switchState(STATE_PLAY);
+}
+
+void SimonState::playWinGame() {
+	m_lastScoreStepTime = millis();
+	// Select the right sound track
+	SoundState::m_lastIndex = SOUND_ID_WIN_GAME;
+	// Play sound
+	OutputManager::getInstance()->m_musicPlayer->stopPlaying();
+	SoundState::activate();
+	// Play light animation
+	OutputManager::getInstance()->m_octoAlertLeds->winGameAnimation();
+	switchState(STATE_END);
+
+//	play(SOUND_ID_WIN_GAME, [] ( OctoAlertLeds * leds ) {
+//		leds->winGameAnimation();
+//	});
+}
+
+//void SimonState::play(uint8_t soundId, LightActivator lightActivator) {
+//	lightActivator(OutputManager::getInstance()->m_octoAlertLeds);
+//}
+
 
 void SimonState::switchState(uint8_t newState) {
 	m_currentState = newState;
@@ -98,6 +139,7 @@ bool SimonState::handleButtonPressed(uint8_t newButtonsStates) {
 	bool isOnlyOneButtonPressed = (__builtin_popcount(newButtonsStates) == 1);
 	bool isSimonGameButtonPressed = (newButtonsStates & (BTN_CPTBARNAC | BTN_TWEAK | BTN_KWAZII | BTN_PESO));
 	if (isOnlyOneButtonPressed && isSimonGameButtonPressed) {
+		// Are we listening to simon button press ?
 		if (m_currentState==STATE_TEST) {
 			uint8_t correctQuarter = m_musicScore[m_nextScoreStep];
 			uint8_t correctButton = m_buttonByQuarter[correctQuarter];
@@ -106,12 +148,10 @@ bool SimonState::handleButtonPressed(uint8_t newButtonsStates) {
 				// So lets start over the same music store with one more note
 				bool isSequenceSuccessfull = m_nextScoreStep==m_lastSuccessfullScoreStep;
 				playOneNote();
-				if (isFinished()) {
-					// Player won the game
-					// TODO play some reward animation and sound
-				}
-				if (isSequenceSuccessfull) {
-					switchState(STATE_WIN);
+				if (m_lastSuccessfullScoreStep >= STEP_TO_WIN_COUNT) {
+					switchState(STATE_WIN_GAME);
+				} else if (isSequenceSuccessfull) {
+					switchState(STATE_WIN_SEQ);
 					m_lastSuccessfullScoreStep++;
 				}
 			} else {
@@ -126,6 +166,6 @@ bool SimonState::handleButtonPressed(uint8_t newButtonsStates) {
 }
 
 bool SimonState::isFinished() {
-	return m_lastSuccessfullScoreStep >= STEP_COUNT;
+	return m_currentState == STATE_END;
 }
 
