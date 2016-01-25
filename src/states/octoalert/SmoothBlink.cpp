@@ -7,13 +7,20 @@
 
 #include "SmoothBlink.h"
 
-SmoothBlink::SmoothBlink(uint32_t color, int8_t ledMask, uint16_t blinkStateChangeCount, uint8_t minBright, uint8_t maxBright)
+SmoothBlink::SmoothBlink(
+		uint32_t color,
+		int64_t ledMask,
+		uint16_t blinkStateChangeCount,
+		float speed,
+		uint8_t minBright,
+		uint8_t maxBright)
 	: OctoAlertLedAnimation(),
 	m_smoothBlinkWay(0),
 	m_maxCountDown(blinkStateChangeCount==0?-1:blinkStateChangeCount),
 	m_currentCountDown(m_maxCountDown),
 	m_currentBrightness(0),
 	m_ledMask(ledMask),
+	m_speed(speed),
 	m_minBright(minBright),
 	m_maxBright(maxBright)
 {
@@ -42,8 +49,8 @@ SmoothBlink::SmoothBlink(uint32_t color, int8_t ledMask, uint16_t blinkStateChan
 
 void SmoothBlink::activate() {
 	m_currentCountDown = m_maxCountDown;
-	m_smoothBlinkWay = 1;
-	m_currentBrightness = m_minBright;
+	m_smoothBlinkWay = m_speed;
+	m_currentBrightness = m_speed > 0 ? m_minBright : m_maxBright;
 }
 
 void SmoothBlink::update() {
@@ -51,8 +58,7 @@ void SmoothBlink::update() {
 		uint8_t r = m_currentBrightness * m_rFactor / 100;
 		uint8_t g = m_currentBrightness * m_gFactor / 100;
 		uint8_t b = m_currentBrightness * m_bFactor / 100;
-		OutputManager::getInstance()->m_octoAlertLeds->setColor(m_ledMask, r, g, b);
-		OutputManager::getInstance()->m_octoAlertLeds->showNewColors();
+		OutputManager::getInstance()->m_octoAlertLeds->setColor(m_ledMask, r, g, b, false);
 		m_currentBrightness += m_smoothBlinkWay;
 		if (m_currentBrightness <= m_minBright || m_currentBrightness >= m_maxBright) {
 			m_smoothBlinkWay *= -1;
@@ -62,6 +68,7 @@ void SmoothBlink::update() {
 			if (m_currentCountDown==0) {
 				// The blinker counter is empty, stop blinking
 				m_smoothBlinkWay = 0;
+				OutputManager::getInstance()->m_octoAlertLeds->off(m_ledMask);
 			}
 		}
 	}

@@ -9,7 +9,6 @@
 
 void FailAnimation::activate() {
 	OutputManager::getInstance()->m_octoAlertLeds->setColor(LED_MASK_ALL, 255, 0, 0);
-	OutputManager::getInstance()->m_octoAlertLeds->showNewColors();
 }
 
 void FailAnimation::update() {

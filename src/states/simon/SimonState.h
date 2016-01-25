@@ -18,7 +18,7 @@
 #include "PlayNoteAnimation.h"
 
 // Durations
-#define STEP_INTERVAL 1000
+#define STEP_INTERVAL 800
 #define STEP_TO_WIN_COUNT 5
 
 // Simon states

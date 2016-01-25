@@ -9,7 +9,6 @@
 
 void IntroAnimation::activate() {
 	OutputManager::getInstance()->m_octoAlertLeds->setColor(LED_MASK_ALL, 0, 0, 255);
-	OutputManager::getInstance()->m_octoAlertLeds->showNewColors();
 }
 
 void IntroAnimation::update() {

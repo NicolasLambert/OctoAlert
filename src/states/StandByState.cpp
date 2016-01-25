@@ -11,7 +11,6 @@ StandByState::StandByState() : AbstractState(), m_blue(Adafruit_NeoPixel::Color(
 
 void StandByState::activate() {
 	OutputManager::getInstance()->m_octoAlertLeds->setColor(LED_MASK_ALL, m_blue);
-	OutputManager::getInstance()->m_octoAlertLeds->showNewColors();
 	OutputManager::getInstance()->m_red1Led->off();
 	OutputManager::getInstance()->m_red2Led->off();
 	OutputManager::getInstance()->m_red3Led->off();

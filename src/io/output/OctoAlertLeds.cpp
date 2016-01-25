@@ -9,9 +9,6 @@
 
 OctoAlertLeds::OctoAlertLeds(uint16_t pin) :
 				m_strip(new Adafruit_NeoPixel(41, pin, NEO_GRB + NEO_KHZ800)),
-//				m_introColor(Adafruit_NeoPixel::Color(0, 0, 255)),
-//				m_winColor(Adafruit_NeoPixel::Color(0, 255, 0)),
-//				m_failColor(Adafruit_NeoPixel::Color(255, 0, 0)),
 				m_off(Adafruit_NeoPixel::Color(0, 0, 0)),
 				m_animation(0) {
 	m_strip->begin();
@@ -30,6 +27,7 @@ void OctoAlertLeds::update() {
 	if (m_animation) {
 		m_animation->update();
 	}
+	m_strip->show();
 }
 
 void OctoAlertLeds::setColor(uint64_t ledMask, uint32_t color, bool switchOffOthers) {
@@ -55,23 +53,6 @@ void OctoAlertLeds::setColor(uint64_t ledMask, uint8_t r, uint8_t g, uint8_t b, 
 	}
 }
 
-void OctoAlertLeds::showNewColors() {
-	m_strip->show();
+void OctoAlertLeds::off(uint64_t ledMask) {
+	setColor(ledMask, m_off, false);
 }
-
-//void OctoAlertLeds::introAnimation() {
-//	smoothBlink(m_introColor, ALL_QUARTER, 2);
-//}
-//
-//void OctoAlertLeds::winSeqAnimation() {
-//	smoothBlink(m_winColor, ALL_QUARTER, 2);
-//}
-//
-//void OctoAlertLeds::failAnimation() {
-//	smoothBlink(m_failColor, ALL_QUARTER, 2);
-//}
-//
-//void OctoAlertLeds::winGameAnimation() {
-//	smoothBlink(m_winColor, ALL_QUARTER, 2);
-//}
-

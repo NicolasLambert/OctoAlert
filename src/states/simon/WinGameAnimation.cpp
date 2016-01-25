@@ -9,7 +9,6 @@
 
 void WinGameAnimation::activate() {
 	OutputManager::getInstance()->m_octoAlertLeds->setColor(LED_MASK_ALL, 0, 255, 0);
-	OutputManager::getInstance()->m_octoAlertLeds->showNewColors();
 }
 
 void WinGameAnimation::update() {

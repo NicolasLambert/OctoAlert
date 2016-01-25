@@ -13,10 +13,7 @@
 #define QUARTER_BOTTOM_LEFT  2
 #define QUARTER_TOP_LEFT     3
 
-#include "../../io/output/LedMapping.h"
-#include "../../io/output/OctoAlertLedAnimation.h"
-#include "../../io/output/OutputManager.h"
-
+#include "../octoalert/SmoothBlink.h"
 
 class PlayNoteAnimation: public OctoAlertLedAnimation {
 public:
@@ -24,16 +21,12 @@ public:
 	void activate();
 	void update();
 private:
-	const int64_t m_ledMask;
-	int8_t m_smoothBlinkWay; // Light increase or decrease or disable
-	int8_t m_currentCountDown; // -1 means infinite blink, 2 for one blink
-	const int8_t m_maxCountDown; // -1 means infinite blink, 2 for one blink
-	uint16_t m_currentBrightness;
-	uint8_t m_rFactor;
-	uint8_t m_gFactor;
-	uint8_t m_bFactor;
-	const uint8_t m_minBright;
-	const uint8_t m_maxBright;
+	SmoothBlink * m_blink_center;
+	SmoothBlink * m_blink_littleRing;
+	SmoothBlink * m_blink_bigRing;
+	uint16_t m_littleRingDelay;
+	uint16_t m_bigRingDelay;
+	unsigned long m_activationTime;
 };
 
 #endif /* SRC_STATES_SIMON_PLAYNOTEANIMATION_H_ */

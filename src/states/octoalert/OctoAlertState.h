@@ -17,7 +17,6 @@ public:
 	void activate();
 	void update();
 private:
-	const uint32_t m_yellow;
 	SmoothBlink * m_smoothBlink;
 };
 
