@@ -21,7 +21,7 @@ protected:
 	uint8_t m_lastIndex;
 private:
 	uint8_t m_trackNumberPosition;
-	uint8_t m_maxIndex;
+	int8_t m_maxIndex;
 	char m_fileName[13];
 };
 

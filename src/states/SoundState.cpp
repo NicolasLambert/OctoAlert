@@ -8,19 +8,21 @@
 #include "SoundState.h"
 #include "OctoStateManager.h"
 
+/**
+ * Sound files must be named from "something1.mp3" to a maximum of "something9.mp2"
+ */
 SoundState::SoundState(char const * const mp3CoreName) :
-		AbstractState(), m_trackNumberPosition(strlen(mp3CoreName)), m_lastIndex(0), m_maxIndex(1) {
+		AbstractState(), m_trackNumberPosition(strlen(mp3CoreName)), m_lastIndex(1), m_maxIndex(-1) {
 	if (mp3CoreName != 0) {
 		strcpy(m_fileName, mp3CoreName);
-		strcat(m_fileName, "1.mp3");
-		Serial.print("Test1 ");
-		Serial.println(m_fileName);
-		while (SD.exists(m_fileName)) {
+		strcat(m_fileName, "X.mp3");
+		do {
+			// Ok, this file exist so let update the file number
+			// Starting with -1 -> 0 for the first loop
 			m_maxIndex++;
-			m_fileName[m_trackNumberPosition] = (char) (((int) '0') + m_maxIndex);
-			Serial.print("TestN ");
-			Serial.println(m_fileName);
-		}
+			// Try next file (starting with (0 + 1) for the first loop
+			m_fileName[m_trackNumberPosition] = (char) (((int) '0') + (m_maxIndex + 1));
+		} while (SD.exists(m_fileName));
 	} else {
 		m_maxIndex = 0;
 	}
@@ -28,13 +30,11 @@ SoundState::SoundState(char const * const mp3CoreName) :
 
 void SoundState::activate() {
 	if (m_maxIndex > 0) {
+		m_fileName[m_trackNumberPosition] = (char) (((int) '0') + m_lastIndex);
 		m_lastIndex++;
-		if (m_lastIndex >= m_maxIndex) {
+		if (m_lastIndex > m_maxIndex) {
 			m_lastIndex = 1;
 		}
-		m_fileName[m_trackNumberPosition] = (char) (((int) '0') + m_lastIndex);
-		Serial.print("Play--> ");
-		Serial.println(m_fileName);
 		OutputManager::getInstance()->m_musicPlayer->playFile(m_fileName);
 	}
 }

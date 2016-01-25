@@ -92,7 +92,8 @@ void SimonState::playOneNote() {
 	m_lastScoreStep++;
 	uint8_t quarterId = m_musicScore[m_lastScoreStep];
 	OutputManager::getInstance()->m_octoAlertLeds->animate(m_playNoteAnimation[quarterId]);
-	play(quarterId);
+	// MP3 Files are named from 1 to 9 max
+	play(quarterId + 1);
 }
 
 void SimonState::play(uint8_t soundId) {
