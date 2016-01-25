@@ -82,6 +82,9 @@ void SimonState::update() {
 			switchState(STATE_END);
 			break;
 		case STATE_END:
+			// Do nothing, this state is here just to wait the end of the win animation
+			switchState(STATE_EXIT);
+		case STATE_EXIT:
 			// Do nothing, the state will go back to stand by at the next update
 			break;
 		}
@@ -147,6 +150,6 @@ bool SimonState::handleButtonPressed(uint8_t newButtonsStates) {
 }
 
 bool SimonState::isFinished() {
-	return m_currentState == STATE_END;
+	return m_currentState == STATE_EXIT;
 }
 
