@@ -51,8 +51,8 @@ private:
 	void play(uint8_t soundId);
 	const uint8_t m_buttonByQuarter[4];
 	uint8_t m_musicScore[STEP_TO_WIN_COUNT];
-	uint8_t m_nextScoreStep;
-	uint8_t m_lastSuccessfullScoreStep;
+	int8_t m_lastScoreStep;
+	int8_t m_lastSuccessfullScoreStep;
 	unsigned long m_lastScoreStepTime;
 	uint8_t m_currentState;
 	IntroAnimation * m_introAnimation;

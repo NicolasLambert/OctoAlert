@@ -10,9 +10,9 @@
 SimonState::SimonState(char const * const mp3Path) :
 		SoundState(mp3Path),
 		m_buttonByQuarter({BTN_TWEAK, BTN_PESO, BTN_KWAZII, BTN_CPTBARNAC}),
-		m_nextScoreStep(0),
-		m_lastSuccessfullScoreStep(0),
-		m_lastScoreStepTime(0),
+		m_lastScoreStep(0),
+		m_lastSuccessfullScoreStep(-1),
+		m_lastScoreStepTime(-1),
 		m_currentState(STATE_INTRO),
 		m_introAnimation(new IntroAnimation()),
 		m_winSequenceAnimation(new WinSequenceAnimation()),
@@ -38,12 +38,12 @@ void SimonState::activate() {
 
 void SimonState::generateMusicScore() {
 	// Reset index
-	m_lastSuccessfullScoreStep = 0;
+	m_lastSuccessfullScoreStep = -1;
 	m_lastScoreStepTime = 0;
 
 	// Generate new music score
-	for(uint8_t i=0;i<STEP_TO_WIN_COUNT;i++) {
-		m_musicScore[i]  = random(4);
+	for (uint8_t i = 0; i < STEP_TO_WIN_COUNT; i++) {
+		m_musicScore[i] = random(4);
 	}
 }
 
@@ -59,7 +59,7 @@ void SimonState::update() {
 			break;
 		case STATE_PLAY:
 			playOneNote();
-			if (m_nextScoreStep > m_lastSuccessfullScoreStep) {
+			if (m_lastScoreStep == m_lastSuccessfullScoreStep + 1) {
 				switchState(STATE_TEST);
 			}
 			break;
@@ -89,10 +89,10 @@ void SimonState::update() {
 }
 
 void SimonState::playOneNote() {
-	uint8_t quarterId = m_musicScore[m_nextScoreStep];
+	m_lastScoreStep++;
+	uint8_t quarterId = m_musicScore[m_lastScoreStep];
 	OutputManager::getInstance()->m_octoAlertLeds->animate(m_playNoteAnimation[quarterId]);
 	play(quarterId);
-	m_nextScoreStep++;
 }
 
 void SimonState::play(uint8_t soundId) {
@@ -107,7 +107,7 @@ void SimonState::play(uint8_t soundId) {
 
 void SimonState::switchState(uint8_t newState) {
 	m_currentState = newState;
-	m_nextScoreStep = 0;
+	m_lastScoreStep = -1;
 }
 
 bool SimonState::isDelayPassed(uint16_t delay) {
@@ -119,19 +119,20 @@ bool SimonState::handleButtonPressed(uint8_t newButtonsStates) {
 	bool isSimonGameButtonPressed = (newButtonsStates & (BTN_CPTBARNAC | BTN_TWEAK | BTN_KWAZII | BTN_PESO));
 	if (isOnlyOneButtonPressed && isSimonGameButtonPressed) {
 		// Are we listening to simon button press ?
-		if (m_currentState==STATE_TEST) {
-			uint8_t correctQuarter = m_musicScore[m_nextScoreStep];
+		if (m_currentState == STATE_TEST) {
+			uint8_t correctQuarter = m_musicScore[m_lastScoreStep + 1];
 			uint8_t correctButton = m_buttonByQuarter[correctQuarter];
 			// It is the correct button ?
-			if (correctButton==newButtonsStates) {
+			if (correctButton == newButtonsStates) {
 				// So lets start over the same music store with one more note
-				bool isSequenceSuccessfull = m_nextScoreStep==m_lastSuccessfullScoreStep;
 				playOneNote();
-				if (m_lastSuccessfullScoreStep >= STEP_TO_WIN_COUNT) {
-					switchState(STATE_WIN_GAME);
-				} else if (isSequenceSuccessfull) {
-					switchState(STATE_WIN_SEQ);
+				if (m_lastScoreStep == m_lastSuccessfullScoreStep + 1) {
 					m_lastSuccessfullScoreStep++;
+					if (m_lastSuccessfullScoreStep + 1 == STEP_TO_WIN_COUNT) {
+						switchState(STATE_WIN_GAME);
+					} else {
+						switchState(STATE_WIN_SEQ);
+					}
 				}
 			} else {
 				m_lastScoreStepTime = 0;
