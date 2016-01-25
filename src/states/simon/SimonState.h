@@ -16,6 +16,7 @@
 #include "FailAnimation.h"
 #include "WinGameAnimation.h"
 #include "PlayNoteAnimation.h"
+#include "Color.h"
 
 // Durations
 #define STEP_INTERVAL 800

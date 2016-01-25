@@ -19,10 +19,10 @@ SimonState::SimonState(char const * const mp3Path) :
 		m_failAnimation(new FailAnimation()),
 		m_winGameAnimation(new WinGameAnimation()),
 		m_playNoteAnimation({
-			new PlayNoteAnimation(Adafruit_NeoPixel::Color(255, 0, 0), LED_MASK_TOP_RIGHT_QUARTER),
-			new PlayNoteAnimation(Adafruit_NeoPixel::Color(0, 0, 255), LED_MASK_BOTTOM_RIGHT_QUARTER),
-			new PlayNoteAnimation(Adafruit_NeoPixel::Color(255, 255, 0), LED_MASK_BOTTOM_LEFT_QUARTER),
-			new PlayNoteAnimation(Adafruit_NeoPixel::Color(0, 255, 0), LED_MASK_TOP_LEFT_QUARTER)})
+			new PlayNoteAnimation(COLOR_RED,    LED_MASK_TOP_RIGHT_QUARTER),
+			new PlayNoteAnimation(COLOR_BLUE,   LED_MASK_BOTTOM_RIGHT_QUARTER),
+			new PlayNoteAnimation(COLOR_YELLOW, LED_MASK_BOTTOM_LEFT_QUARTER),
+			new PlayNoteAnimation(COLOR_GREEN,  LED_MASK_TOP_LEFT_QUARTER)})
 		{
 	// Analog input pin 0 is unconnected, random analog
 	// noise will cause the call to randomSeed() to generate
