@@ -9,9 +9,8 @@
 #define OCTOALERTLEDS_H_
 
 #include "../../../Libraries/Adafruit_NeoPixel/Adafruit_NeoPixel.h"
-#include <stdint.h>
-#include "../input/InputManager.h"
 #include "OctoAlertLedAnimation.h"
+#include "LedMapping.h"
 
 class OctoAlertLeds {
 public:

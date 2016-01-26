@@ -8,8 +8,6 @@
 #ifndef SRC_IO_OUTPUT_OCTOALERTLEDANIMATION_H_
 #define SRC_IO_OUTPUT_OCTOALERTLEDANIMATION_H_
 
-#include "../../../Libraries/Adafruit_NeoPixel/Adafruit_NeoPixel.h"
-#include "LedMapping.h"
 #include "../../Activable.h"
 
 class OctoAlertLedAnimation : public Activable {

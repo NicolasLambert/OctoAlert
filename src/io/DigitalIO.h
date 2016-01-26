@@ -8,7 +8,7 @@
 #ifndef DIGITALIO_H_
 #define DIGITALIO_H_
 
-#include "Arduino.h"
+#include <stdint.h>
 
 class DoorStateManager;
 

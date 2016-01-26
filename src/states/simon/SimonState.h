@@ -10,7 +10,6 @@
 
 #include "../SoundState.h"
 #include "../../io/input/InputManager.h"
-#include "../../../Libraries/Adafruit_NeoPixel/Adafruit_NeoPixel.h"
 #include "IntroAnimation.h"
 #include "WinSequenceAnimation.h"
 #include "FailAnimation.h"

@@ -10,6 +10,7 @@
 
 #include "../DigitalIO.h"
 #include "../../Updatable.h"
+#include <Arduino.h>
 
 class DigitalOutput: public DigitalIO, public Updatable {
 public:

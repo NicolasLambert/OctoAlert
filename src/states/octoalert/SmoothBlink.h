@@ -9,6 +9,7 @@
 #define SRC_STATES_OCTOALERT_SMOOTHBLINK_H_
 
 #include "../../io/output/OutputManager.h"
+#include "../../io/output/LedMapping.h"
 
 #define MIN_BRIGHT_BLINK 0
 #define MAX_BRIGHT_BLINK 255

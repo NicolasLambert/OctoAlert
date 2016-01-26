@@ -6,7 +6,6 @@
 
 #ifndef _OctoAlert_H_
 #define _OctoAlert_H_
-#include "Arduino.h"
 #include "states/OctoStateManager.h"
 #ifdef __cplusplus
 extern "C" {

@@ -9,6 +9,7 @@
 #define DIGITALINPUT_H_
 
 #include "../DigitalIO.h"
+#include <Arduino.h>
 
 class DigitalInput: public DigitalIO {
 public:
