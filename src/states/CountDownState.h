@@ -10,7 +10,7 @@
 
 #include "SoundState.h"
 
-static uint16_t const cntDwnDelay[6] = { 0, 1950, 950, 950, 950, 950 };
+static uint16_t const cntDwnDelay[6] = { 0, 1700, 850, 850, 850, 850 };
 
 class CountDownState: public SoundState {
 public:
