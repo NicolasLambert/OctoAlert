@@ -8,7 +8,7 @@
 #ifndef OCTOALERTLEDS_H_
 #define OCTOALERTLEDS_H_
 
-#include "../../../Libraries/Adafruit_NeoPixel/Adafruit_NeoPixel.h"
+#include <Adafruit_NeoPixel.h>
 #include "OctoAlertLedAnimation.h"
 #include "LedMapping.h"
 

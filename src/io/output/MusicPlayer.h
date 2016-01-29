@@ -8,7 +8,7 @@
 #ifndef MUSICPLAYER_H_
 #define MUSICPLAYER_H_
 
-#include "../../../Libraries/Adafruit_VS1053/Adafruit_VS1053.h"
+#include <Adafruit_VS1053.h>
 
 // These are the pins used for the music maker shield
 #define SHIELD_CS     7      // VS1053 chip select pin (output)
