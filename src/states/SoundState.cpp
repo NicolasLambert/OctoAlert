@@ -28,6 +28,7 @@ SoundState::SoundState(char const * const mp3CoreName) :
 }
 
 void SoundState::activate() {
+	AbstractState::activate();
 	if (m_maxIndex > 0) {
 		m_fileName[m_trackNumberPosition] = (char) (((int) '0') + m_lastIndex);
 		m_lastIndex++;

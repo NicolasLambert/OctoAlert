@@ -9,7 +9,6 @@
 #define SOUNDSTATE_H_
 
 #include <SD.h>
-#include "../io/output/OutputManager.h"
 #include "AbstractState.h"
 
 class SoundState: public AbstractState {

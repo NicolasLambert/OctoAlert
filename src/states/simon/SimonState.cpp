@@ -32,6 +32,7 @@ SimonState::SimonState(char const * const mp3Path) :
 }
 
 void SimonState::activate() {
+	AbstractState::activate();
 	m_lastScoreStepTime = 0;
 	switchState(STATE_INTRO);
 }
@@ -94,9 +95,8 @@ void SimonState::update() {
 void SimonState::playOneNote() {
 	m_lastScoreStep++;
 	uint8_t quarterId = m_musicScore[m_lastScoreStep];
-	OutputManager::getInstance()->m_octoAlertLeds->animate(m_playNoteAnimation[quarterId]);
-	// MP3 Files are named from 1 to 9 max
 	play(quarterId + 1);
+	OutputManager::getInstance()->m_octoAlertLeds->animate(m_playNoteAnimation[quarterId]);
 }
 
 void SimonState::play(uint8_t soundId) {
@@ -104,7 +104,6 @@ void SimonState::play(uint8_t soundId) {
 	// Select the right sound track
 	SoundState::m_lastIndex = soundId;
 	// Play sound
-	OutputManager::getInstance()->m_musicPlayer->stopPlaying();
 	SoundState::activate();
 }
 

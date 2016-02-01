@@ -50,21 +50,12 @@ void OctoStateManager::onNewInputState(uint8_t newState) {
 	}
 }
 
+AbstractState * OctoStateManager::getNextState(AbstractState * currentState) {
+	return m_standByState;
+}
+
 void OctoStateManager::update() {
-	if (m_currentState->isFinished()) {
-		changeState(m_standByState);
-	}
-
-	// Update count down procedure
-	m_currentState->update();
+	// Just implement this::update to avoid ambiguous calls
+	AbstractStateManager::update();
 }
 
-void OctoStateManager::changeState(AbstractState* newState) {
-	m_currentState = newState;
-	if (m_standByState != newState) {
-		// Stop music and restore stand by led states
-		OutputManager::getInstance()->m_musicPlayer->stopPlaying();
-		m_standByState->activate();
-	}
-	newState->activate();
-}

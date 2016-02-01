@@ -12,14 +12,15 @@
 #include "StandByState.h"
 #include "CountDownState.h"
 #include "simon/SimonState.h"
+#include "AbstractStateManager.h"
 
-class OctoStateManager: public AbstractManager<OctoStateManager>, public InputManagerListener {
+class OctoStateManager: public AbstractManager<OctoStateManager>, public AbstractStateManager, public InputManagerListener {
 public:
 	// Listener methods
 	OctoStateManager();
 	void onNewInputState(uint8_t newState);
-	void update();
 	StandByState * m_standByState;
+	void update();
 
 private:
 	// States members
@@ -30,9 +31,7 @@ private:
 	SoundState * m_pesoState;
 	CountDownState * m_countDownState;
 	SimonState * m_simonState;
-
-	AbstractState * m_currentState;
-	void changeState(AbstractState * newState);
+	AbstractState * getNextState(AbstractState * currentState);
 };
 
 #endif /* OCTOSTATEMANAGER_H_ */
