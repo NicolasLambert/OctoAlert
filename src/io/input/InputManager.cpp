@@ -19,7 +19,7 @@ InputManager::InputManager() :
 		m_debounceDelay(DEFAULT_COMBINED_DEBOUNCE_DELAY),
 		m_lastState(0),
 		m_currentState(0),
-		m_listener(0) {}
+		m_listener(nullptr) {}
 
 uint8_t InputManager::getState() {
 	return
