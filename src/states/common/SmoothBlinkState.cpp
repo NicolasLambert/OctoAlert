@@ -5,16 +5,15 @@
  *      Author: nicolas
  */
 
-#include "SmoothBlink.h"
+#include "../common/SmoothBlinkState.h"
 
-SmoothBlink::SmoothBlink(
+SmoothBlinkState::SmoothBlinkState(
 		uint32_t color,
 		int64_t ledMask,
 		uint16_t blinkStateChangeCount,
 		float speed,
 		uint8_t minBright,
-		uint8_t maxBright)
-	: OctoAlertLedAnimation(),
+		uint8_t maxBright) :
 	m_smoothBlinkWay(0),
 	m_maxCountDown(blinkStateChangeCount==0?-1:blinkStateChangeCount),
 	m_currentCountDown(m_maxCountDown),
@@ -47,13 +46,13 @@ SmoothBlink::SmoothBlink(
 	}
 }
 
-void SmoothBlink::activate() {
+void SmoothBlinkState::activate() {
 	m_currentCountDown = m_maxCountDown;
 	m_smoothBlinkWay = m_speed;
 	m_currentBrightness = m_speed > 0 ? m_minBright : m_maxBright;
 }
 
-void SmoothBlink::update() {
+void SmoothBlinkState::update() {
 	if (m_smoothBlinkWay != 0) {
 		uint8_t r = m_currentBrightness * m_rFactor / 100;
 		uint8_t g = m_currentBrightness * m_gFactor / 100;
@@ -72,4 +71,8 @@ void SmoothBlink::update() {
 			}
 		}
 	}
+}
+
+bool SmoothBlinkState::isFinished() {
+	return !m_smoothBlinkWay;
 }

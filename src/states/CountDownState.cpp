@@ -7,8 +7,8 @@
 
 #include "CountDownState.h"
 
-CountDownState::CountDownState(char const * const mp3Path) :
-		SoundState(mp3Path), m_lastStepTime(0UL), m_lastStep(0) {}
+CountDownState::CountDownState() :
+		SoundState(SOUND_CNTDOWN), m_lastStepTime(0UL), m_lastStep(0) {}
 
 void CountDownState::activate() {
 	SoundState::activate();

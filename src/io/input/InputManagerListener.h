@@ -12,7 +12,6 @@
 
 class InputManagerListener {
 public:
-	InputManagerListener();
 	virtual ~InputManagerListener();
 	virtual void onNewInputState(uint8_t newState) = 0;
 };

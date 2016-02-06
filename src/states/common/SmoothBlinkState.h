@@ -5,11 +5,12 @@
  *      Author: nicolas
  */
 
-#ifndef SRC_STATES_OCTOALERT_SMOOTHBLINK_H_
-#define SRC_STATES_OCTOALERT_SMOOTHBLINK_H_
+#ifndef SRC_STATES_OCTOALERT_SMOOTHBLINKSTATESTATE_H_
+#define SRC_STATES_OCTOALERT_SMOOTHBLINKSTATESTATE_H_
 
 #include "../../io/output/OutputManager.h"
 #include "../../io/output/LedMapping.h"
+#include "../common/AbstractState.h"
 
 #define MIN_BRIGHT_BLINK 0
 #define MAX_BRIGHT_BLINK 255
@@ -18,9 +19,9 @@
 #define DEFAULT_SMOOTH_SPEED 2
 #define INFINITE_BLINK 0
 
-class SmoothBlink: public OctoAlertLedAnimation {
+class SmoothBlinkState: public AbstractState {
 public:
-	SmoothBlink(
+	SmoothBlinkState(
 			uint32_t color,
 			int64_t ledMask = LED_MASK_ALL,
 			uint16_t blinkStateChangeCount = INFINITE_BLINK,
@@ -29,6 +30,7 @@ public:
 			uint8_t maxBright = MAX_BRIGHT_BLINK);
 	void activate();
 	void update();
+	bool isFinished();
 private:
 	const int64_t m_ledMask;
 	float m_smoothBlinkWay; // Light increase or decrease or disable
@@ -43,4 +45,4 @@ private:
 	const uint8_t m_maxBright;
 };
 
-#endif /* SRC_STATES_OCTOALERT_SMOOTHBLINK_H_ */
+#endif /* SRC_STATES_OCTOALERT_SMOOTHBLINKSTATESTATE_H_ */

@@ -8,14 +8,15 @@
 #ifndef SRC_STATES_ABSTRACTSTATEMANAGER_H_
 #define SRC_STATES_ABSTRACTSTATEMANAGER_H_
 
-#include "../Activable.h"
 #include "AbstractState.h"
 
-class AbstractStateManager : public Activable {
+class AbstractStateManager : public AbstractState {
 public:
 	AbstractStateManager();
 	void activate();
 	void update();
+	// Return true to stay in the current state
+	bool handleButtonPressed(uint8_t newButtonsStates);
 protected:
 	AbstractState * m_currentState;
 	virtual void changeState(AbstractState * newState);

@@ -8,13 +8,12 @@
 #ifndef ABSTRACTSTATE_H_
 #define ABSTRACTSTATE_H_
 
-#include "../Activable.h"
-#include "../io/output/OutputManager.h"
+#include "../../Activable.h"
+#include "../../io/output/OutputManager.h"
 #include <stdint.h>
 
 class AbstractState : public Activable {
 public:
-	AbstractState();
 	void activate();
 	void update();
 	virtual bool isFinished() = 0;

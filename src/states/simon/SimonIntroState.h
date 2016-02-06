@@ -1,24 +1,23 @@
 /*
- * IntroAnimation.h
+ * SimonIntroState.h
  *
- *  Created on: 24 janv. 2016
+ *  Created on: 1 févr. 2016
  *      Author: nicolas
  */
 
-#ifndef SRC_STATES_SIMON_INTROANIMATION_H_
-#define SRC_STATES_SIMON_INTROANIMATION_H_
+#ifndef SRC_STATES_SIMON_SIMONINTROSTATE_H_
+#define SRC_STATES_SIMON_SIMONINTROSTATE_H_
 
-#include "../../io/output/OctoAlertLedAnimation.h"
-#include "../../io/output/OutputManager.h"
+#include "../common/SoundState.h"
 #include "Color.h"
 
 #define WAITING_TICKS_BIG_RING 13
 // Because we have 24 leds on the big ring and 16 on the little (24/16 = 3/2)
 #define WAITING_TICKS_LITTLE_RING WAITING_TICKS_BIG_RING*3/2
 
-class IntroAnimation: public OctoAlertLedAnimation {
+class SimonIntroState: public SoundState {
 public:
-	IntroAnimation();
+	SimonIntroState();
 	void activate();
 	void update();
 private:
@@ -36,4 +35,4 @@ private:
 	const uint32_t m_green;
 };
 
-#endif /* SRC_STATES_SIMON_INTROANIMATION_H_ */
+#endif /* SRC_STATES_SIMON_SIMONINTROSTATE_H_ */

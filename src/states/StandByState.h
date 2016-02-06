@@ -8,7 +8,7 @@
 #ifndef STANDBYSTATE_H_
 #define STANDBYSTATE_H_
 
-#include "AbstractState.h"
+#include "common/AbstractState.h"
 
 class StandByState: public AbstractState {
 public:

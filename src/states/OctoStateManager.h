@@ -12,7 +12,7 @@
 #include "StandByState.h"
 #include "CountDownState.h"
 #include "simon/SimonState.h"
-#include "AbstractStateManager.h"
+#include "common/AbstractStateManager.h"
 
 class OctoStateManager: public AbstractManager<OctoStateManager>, public AbstractStateManager, public InputManagerListener {
 public:
@@ -21,6 +21,9 @@ public:
 	void onNewInputState(uint8_t newState);
 	StandByState * m_standByState;
 	void update();
+	bool isFinished();
+	// Return true to stay in the current state
+	bool handleButtonPressed(uint8_t newButtonsStates);
 
 private:
 	// States members

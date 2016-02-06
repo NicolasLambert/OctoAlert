@@ -5,9 +5,7 @@
  *      Author: nicolaslambert
  */
 
-#include "AbstractState.h"
-
-AbstractState::AbstractState() {}
+#include "../common/AbstractState.h"
 
 void AbstractState::activate() {
 	// Stop music and restore stand by led states

@@ -9,24 +9,13 @@
 
 OctoAlertLeds::OctoAlertLeds(uint16_t pin) :
 				m_strip(new Adafruit_NeoPixel(41, pin, NEO_GRB + NEO_KHZ800)),
-				m_off(Adafruit_NeoPixel::Color(0, 0, 0)),
-				m_animation(nullptr) {
+				m_off(Adafruit_NeoPixel::Color(0, 0, 0)) {
 	m_strip->begin();
 	m_strip->setBrightness(70);
 	m_strip->show(); // Initialize all pixels to 'off'
 }
 
-void OctoAlertLeds::animate(OctoAlertLedAnimation * animation) {
-	m_animation = animation;
-	if (m_animation) {
-		m_animation->activate();
-	}
-}
-
 void OctoAlertLeds::update() {
-	if (m_animation) {
-		m_animation->update();
-	}
 	m_strip->show();
 }
 

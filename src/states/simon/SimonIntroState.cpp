@@ -1,13 +1,14 @@
 /*
- * IntroAnimation.cpp
+ * SimonIntroState.cpp
  *
- *  Created on: 24 janv. 2016
+ *  Created on: 1 févr. 2016
  *      Author: nicolas
  */
 
-#include "IntroAnimation.h"
+#include "SimonIntroState.h"
 
-IntroAnimation::IntroAnimation() :
+SimonIntroState::SimonIntroState() :
+	SoundState(SOUND_SIMON_INTRO),
 	m_redMask(0),
 	m_blueMask(0),
 	m_yellowMask(0),
@@ -19,7 +20,8 @@ IntroAnimation::IntroAnimation() :
 	m_waitingCountBigRing(0),
 	m_waitingCountLittleRing(0) {}
 
-void IntroAnimation::activate() {
+void SimonIntroState::activate() {
+	SoundState::activate();
 	m_redMask = (LED_MASK_TOP_RIGHT_QUARTER & ~LED_MASK_CENTER);
 	m_blueMask = (LED_MASK_BOTTOM_RIGHT_QUARTER & ~LED_MASK_CENTER);
 	m_yellowMask = (LED_MASK_BOTTOM_LEFT_QUARTER & ~LED_MASK_CENTER);
@@ -29,7 +31,8 @@ void IntroAnimation::activate() {
 	m_waitingCountBigRing = WAITING_TICKS_BIG_RING;
 }
 
-void IntroAnimation::update() {
+void SimonIntroState::update() {
+	SoundState::update();
 	OutputManager::getInstance()->m_octoAlertLeds->setColor(m_redMask, m_red, false);
 	OutputManager::getInstance()->m_octoAlertLeds->setColor(m_blueMask, m_blue, false);
 	OutputManager::getInstance()->m_octoAlertLeds->setColor(m_yellowMask, m_yellow, false);
@@ -38,7 +41,7 @@ void IntroAnimation::update() {
 	rotateAll(m_waitingCountBigRing, WAITING_TICKS_BIG_RING, LED_MASK_BIG_RING);
 }
 
-void IntroAnimation::rotateAll(uint8_t &waitingCounter, uint8_t waitingTicks, uint64_t rotationLocationMask) {
+void SimonIntroState::rotateAll(uint8_t &waitingCounter, uint8_t waitingTicks, uint64_t rotationLocationMask) {
 	waitingCounter--;
 	if (!waitingCounter) {
 		waitingCounter = waitingTicks;
@@ -49,7 +52,7 @@ void IntroAnimation::rotateAll(uint8_t &waitingCounter, uint8_t waitingTicks, ui
 	}
 }
 
-void IntroAnimation::rotateOne(uint64_t &colorMaskToRotate, uint64_t rotationLocationMask) {
+void SimonIntroState::rotateOne(uint64_t &colorMaskToRotate, uint64_t rotationLocationMask) {
 	// Get the lowest set bit
 	int rotationStartIndex = __builtin_ctzll(rotationLocationMask);
 	uint64_t ring = colorMaskToRotate;

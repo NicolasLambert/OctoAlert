@@ -8,16 +8,20 @@
 #ifndef SRC_STATES_OCTOALERT_OCTOALERTSTATE_H_
 #define SRC_STATES_OCTOALERT_OCTOALERTSTATE_H_
 
-#include "../SoundState.h"
-#include "SmoothBlink.h"
+#include "../common/SmoothBlinkState.h"
+#include "../common/SoundState.h"
 
-class OctoAlertState: public SoundState {
+class OctoAlertState: public AbstractState {
 public:
-	OctoAlertState(char const * const mp3Path);
+	OctoAlertState();
 	void activate();
 	void update();
+	bool isFinished();
+	// Return true to stay in the current state
+	bool handleButtonPressed(uint8_t newButtonsStates);
 private:
-	SmoothBlink * m_smoothBlink;
+	SoundState * m_sound;
+	SmoothBlinkState * m_blink;
 };
 
 #endif /* SRC_STATES_OCTOALERT_OCTOALERTSTATE_H_ */

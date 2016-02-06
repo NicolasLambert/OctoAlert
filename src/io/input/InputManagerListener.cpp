@@ -7,6 +7,5 @@
 
 #include "InputManagerListener.h"
 
-InputManagerListener::InputManagerListener() {}
 InputManagerListener::~InputManagerListener() {}
 

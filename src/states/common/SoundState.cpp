@@ -5,7 +5,7 @@
  *      Author: nicolaslambert
  */
 
-#include "SoundState.h"
+#include "../common/SoundState.h"
 
 /**
  * Sound files must be named from "something1.mp3" to a maximum of "something9.mp2"
