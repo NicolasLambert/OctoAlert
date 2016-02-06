@@ -43,6 +43,6 @@ void MusicPlayer::stopPlaying() {
 		m_musicPlayer->stopPlaying();
 		// It seems that the VS1053 need a little delay between stop a play.
 		// Without this delay, the VS1053 crash very often and/or we got a big delay between play call and real playing
-		delay(400);
+		delay(50);
 	}
 }
