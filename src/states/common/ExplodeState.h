@@ -14,7 +14,7 @@
 
 class ExplodeState: public AbstractState {
 public:
-	ExplodeState(uint32_t color, int64_t ledMask = LED_MASK_ALL, uint16_t animationCount = INFINITE_BLINK);
+	ExplodeState(uint32_t color, uint64_t ledMask = LED_MASK_ALL, uint16_t animationCount = INFINITE_BLINK);
 	void activate();
 	void update();
 	bool isFinished();

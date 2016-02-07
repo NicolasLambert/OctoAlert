@@ -9,7 +9,7 @@
 
 SmoothBlinkState::SmoothBlinkState(
 		uint32_t color,
-		int64_t ledMask,
+		uint64_t ledMask,
 		uint16_t blinkStateChangeCount,
 		float speed,
 		uint8_t minBright,

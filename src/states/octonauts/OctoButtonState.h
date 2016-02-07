@@ -8,7 +8,7 @@
 #ifndef SRC_STATES_OCTONAUTS_OCTOBUTTONSTATE_H_
 #define SRC_STATES_OCTONAUTS_OCTOBUTTONSTATE_H_
 
-#include "../common/ExplodeState.h"
+#include "../common/RadarState.h"
 #include "../common/SoundState.h"
 
 class OctoButtonState: public SoundState {
@@ -17,7 +17,7 @@ public:
 	void activate();
 	void update();
 private:
-	ExplodeState * m_explodeState;
+	RadarState * m_explodeState;
 };
 
 #endif /* SRC_STATES_OCTONAUTS_OCTOBUTTONSTATE_H_ */

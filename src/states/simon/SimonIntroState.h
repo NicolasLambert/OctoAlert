@@ -22,7 +22,6 @@ public:
 	void update();
 private:
 	void rotateAll(uint8_t &waitingCounter, uint8_t waitingTicks, uint64_t rotationLocationMask);
-	void rotateOne(uint64_t &colorMaskToRotate, uint64_t rotationLocationMask);
 	uint64_t m_redMask;
 	uint64_t m_blueMask;
 	uint64_t m_yellowMask;

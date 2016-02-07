@@ -7,7 +7,7 @@
 
 #include "ExplodeState.h"
 
-ExplodeState::ExplodeState(uint32_t color, int64_t ledMask, uint16_t animationCount) :
+ExplodeState::ExplodeState(uint32_t color, uint64_t ledMask, uint16_t animationCount) :
 	m_blink_center(new SmoothBlinkState(color, ledMask & LED_MASK_CENTER, 2, 4)),
 	m_blink_littleRing(new SmoothBlinkState(color, ledMask & LED_MASK_LITTLE_RING, 2, 4)),
 	m_blink_bigRing(new SmoothBlinkState(color, ledMask & LED_MASK_BIG_RING, 2, 4)),

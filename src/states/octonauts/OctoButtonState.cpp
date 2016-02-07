@@ -9,7 +9,7 @@
 
 OctoButtonState::OctoButtonState(uint32_t color, char const * const mp3Path) :
 	SoundState(mp3Path),
-	m_explodeState(new ExplodeState(color)) {}
+	m_explodeState(new RadarState(color)) {}
 
 void OctoButtonState::activate() {
 	SoundState::activate();

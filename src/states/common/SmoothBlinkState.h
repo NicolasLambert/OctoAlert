@@ -23,7 +23,7 @@ class SmoothBlinkState: public AbstractState {
 public:
 	SmoothBlinkState(
 			uint32_t color,
-			int64_t ledMask = LED_MASK_ALL,
+			uint64_t ledMask = LED_MASK_ALL,
 			uint16_t blinkStateChangeCount = INFINITE_BLINK,
 			float speed = DEFAULT_SMOOTH_SPEED,
 			uint8_t minBright = MIN_BRIGHT_BLINK,
@@ -32,7 +32,7 @@ public:
 	void update();
 	bool isFinished();
 private:
-	const int64_t m_ledMask;
+	const uint64_t m_ledMask;
 	float m_smoothBlinkWay; // Light increase or decrease or disable
 	int8_t m_currentCountDown; // -1 means infinite blink, 2 for one blink
 	const int8_t m_maxCountDown; // -1 means infinite blink, 2 for one blink

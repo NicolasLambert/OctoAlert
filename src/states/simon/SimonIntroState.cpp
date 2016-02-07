@@ -45,27 +45,9 @@ void SimonIntroState::rotateAll(uint8_t &waitingCounter, uint8_t waitingTicks, u
 	waitingCounter--;
 	if (!waitingCounter) {
 		waitingCounter = waitingTicks;
-		rotateOne(m_redMask, rotationLocationMask);
-		rotateOne(m_blueMask, rotationLocationMask);
-		rotateOne(m_yellowMask, rotationLocationMask);
-		rotateOne(m_greenMask, rotationLocationMask);
+		rotate(m_redMask, rotationLocationMask);
+		rotate(m_blueMask, rotationLocationMask);
+		rotate(m_yellowMask, rotationLocationMask);
+		rotate(m_greenMask, rotationLocationMask);
 	}
-}
-
-void SimonIntroState::rotateOne(uint64_t &colorMaskToRotate, uint64_t rotationLocationMask) {
-	// Get the lowest set bit
-	int rotationStartIndex = __builtin_ctzll(rotationLocationMask);
-	uint64_t ring = colorMaskToRotate;
-	// Remove useless bits
-	ring &= rotationLocationMask;
-	// Shift if necessary for rotation
-	ring >>= rotationStartIndex;
-	// Rotate by 1
-	ring = ((ring >> 1) | (ring << (__builtin_popcountll(rotationLocationMask) - 1)));
-	// Shift to restore maskIndex
-	ring <<= rotationStartIndex;
-	// Clean any polluted bit
-	ring &= rotationLocationMask;
-	// Override rotated bits
-	colorMaskToRotate = ((colorMaskToRotate & ~rotationLocationMask) | ring);
 }

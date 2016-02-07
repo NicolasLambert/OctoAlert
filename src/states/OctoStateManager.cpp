@@ -12,10 +12,10 @@ OctoStateManager::OctoStateManager() :
 		// States
 		m_standByState(new StandByState()),
 		m_octoAlertState(new OctoAlertState()),
-		m_captainBarnaclesState(new OctoButtonState(Adafruit_NeoPixel::Color(255, 144, 0), SOUND_CAPTAIN)),
-		m_tweakState(new OctoButtonState(Adafruit_NeoPixel::Color(255, 144, 0), SOUND_TWEAK)),
-		m_kwaziiState(new OctoButtonState(Adafruit_NeoPixel::Color(255, 144, 0), SOUND_KWASII)),
-		m_pesoState(new OctoButtonState(Adafruit_NeoPixel::Color(255, 144, 0), SOUND_PESO)),
+		m_captainBarnaclesState(new OctoButtonState(COLOR_BLUE, SOUND_CAPTAIN)),
+		m_tweakState(new OctoButtonState(COLOR_GREEN, SOUND_TWEAK)),
+		m_kwaziiState(new OctoButtonState(COLOR_RED, SOUND_KWASII)),
+		m_pesoState(new OctoButtonState(COLOR_YELLOW, SOUND_PESO)),
 		m_countDownState(new CountDownState()),
 		m_simonState(new SimonState()) {
 
