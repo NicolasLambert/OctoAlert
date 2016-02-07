@@ -9,7 +9,7 @@
 #define SRC_STATES_SIMON_SIMONINTROSTATE_H_
 
 #include "../common/SoundState.h"
-#include "Color.h"
+#include "../../io/output/Color.h"
 
 #define WAITING_TICKS_BIG_RING 13
 // Because we have 24 leds on the big ring and 16 on the little (24/16 = 3/2)

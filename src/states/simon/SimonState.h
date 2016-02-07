@@ -15,7 +15,8 @@
 #include "SimonWinGameState.h"
 #include "SimonPlayState.h"
 #include "SimonTestState.h"
-#include "Color.h"
+#include "../../io/output/Color.h"
+
 #include "../common/AbstractStateManager.h"
 
 // Durations
