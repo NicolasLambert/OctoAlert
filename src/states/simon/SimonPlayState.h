@@ -13,7 +13,7 @@
 #define QUARTER_BOTTOM_LEFT  2
 #define QUARTER_TOP_LEFT     3
 
-#include "../common/SmoothBlinkState.h"
+#include "../common/ExplodeState.h"
 #include "../common/SoundState.h"
 
 class SimonPlayState: public SoundState {
@@ -23,13 +23,8 @@ public:
 	void update();
 	bool isFinished();
 private:
-	SmoothBlinkState * m_blink_center;
-	SmoothBlinkState * m_blink_littleRing;
-	SmoothBlinkState * m_blink_bigRing;
-	uint16_t m_littleRingDelay;
-	uint16_t m_bigRingDelay;
-	unsigned long m_activationTime;
 	uint8_t m_soundIndex;
+	ExplodeState * m_explodeState;
 };
 
 #endif /* SRC_STATES_SIMON_SIMONPLAYSTATE_H_ */
