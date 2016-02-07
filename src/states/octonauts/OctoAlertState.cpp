@@ -5,7 +5,7 @@
  *      Author: nicolaslambert
  */
 
-#include "OctoAlertState.h"
+#include "../octonauts/OctoAlertState.h"
 
 OctoAlertState::OctoAlertState() :
 	m_sound(new SoundState(SOUND_ALERT)),

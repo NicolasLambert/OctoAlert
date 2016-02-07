@@ -7,9 +7,9 @@
 
 #include "SimonPlayState.h"
 
-SimonPlayState::SimonPlayState(uint32_t color, int64_t ledMask, uint8_t soundIndex)	:
+SimonPlayState::SimonPlayState(uint32_t color, int64_t ledMask, uint8_t soundIndex) :
 	SoundState(SOUND_SIMON_PLAY),
-	m_explodeState(new ExplodeState(color, ledMask & ~LED_MASK_CENTER)),
+	m_explodeState(new ExplodeState(color, ledMask & ~LED_MASK_CENTER, 1)),
 	m_soundIndex(soundIndex) {}
 
 void SimonPlayState::activate() {

@@ -5,8 +5,8 @@
  *      Author: nicolaslambert
  */
 
-#ifndef SRC_STATES_OCTOALERT_OCTOALERTSTATE_H_
-#define SRC_STATES_OCTOALERT_OCTOALERTSTATE_H_
+#ifndef SRC_STATES_OCTONAUTS_OCTOALERTSTATE_H_
+#define SRC_STATES_OCTONAUTS_OCTOALERTSTATE_H_
 
 #include "../common/SmoothBlinkState.h"
 #include "../common/SoundState.h"
@@ -24,4 +24,4 @@ private:
 	SmoothBlinkState * m_blink;
 };
 
-#endif /* SRC_STATES_OCTOALERT_OCTOALERTSTATE_H_ */
+#endif /* SRC_STATES_OCTONAUTS_OCTOALERTSTATE_H_ */

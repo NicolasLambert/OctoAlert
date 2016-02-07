@@ -8,7 +8,7 @@
 #ifndef COUNTDOWNSTATE_H_
 #define COUNTDOWNSTATE_H_
 
-#include "common/SoundState.h"
+#include "../common/SoundState.h"
 
 static uint16_t const cntDwnDelay[6] = { 0, 1700, 850, 850, 850, 850 };
 

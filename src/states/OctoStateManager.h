@@ -8,11 +8,12 @@
 #ifndef OCTOSTATEMANAGER_H_
 #define OCTOSTATEMANAGER_H_
 
-#include "octoalert/OctoAlertState.h"
 #include "StandByState.h"
-#include "CountDownState.h"
+#include "countdown/CountDownState.h"
 #include "simon/SimonState.h"
 #include "common/AbstractStateManager.h"
+#include "octonauts/OctoAlertState.h"
+#include "octonauts/OctoButtonState.h"
 
 class OctoStateManager: public AbstractManager<OctoStateManager>, public AbstractStateManager, public InputManagerListener {
 public:
@@ -28,10 +29,10 @@ public:
 private:
 	// States members
 	OctoAlertState * m_octoAlertState;
-	SoundState * m_captainBarnaclesState;
-	SoundState * m_tweakState;
-	SoundState * m_kwaziiState;
-	SoundState * m_pesoState;
+	OctoButtonState * m_captainBarnaclesState;
+	OctoButtonState * m_tweakState;
+	OctoButtonState * m_kwaziiState;
+	OctoButtonState * m_pesoState;
 	CountDownState * m_countDownState;
 	SimonState * m_simonState;
 	AbstractState * getNextState(AbstractState * currentState);
