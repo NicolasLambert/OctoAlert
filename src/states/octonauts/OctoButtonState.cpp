@@ -8,15 +8,24 @@
 #include "../octonauts/OctoButtonState.h"
 
 OctoButtonState::OctoButtonState(uint32_t color, char const * const mp3Path) :
-	SoundState(mp3Path),
-	m_explodeState(new RadarState(color)) {}
+	RadarState(LED_MASK_RADAR),
+	m_color(color),
+	m_soundState(new SoundState(mp3Path)) {}
 
 void OctoButtonState::activate() {
-	SoundState::activate();
-	m_explodeState->activate();
+	RadarState::activate();
+	m_soundState->activate();
 }
 
 void OctoButtonState::update() {
-	SoundState::update();
-	m_explodeState->update();
+	RadarState::update();
+	m_soundState->update();
+}
+
+bool OctoButtonState::isFinished() {
+	return m_soundState->isFinished();
+}
+
+void OctoButtonState::setColors() {
+	OutputManager::getInstance()->m_octoAlertLeds->setColor(LED_MASK_ALL, m_color);
 }

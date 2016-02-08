@@ -8,30 +8,26 @@
 #ifndef SRC_STATES_SIMON_SIMONINTROSTATE_H_
 #define SRC_STATES_SIMON_SIMONINTROSTATE_H_
 
+#include "../../io/output/OutputManager.h"
 #include "../common/SoundState.h"
+#include "../common/RadarState.h"
 #include "../../io/output/Color.h"
 
-#define WAITING_TICKS_BIG_RING 13
-// Because we have 24 leds on the big ring and 16 on the little (24/16 = 3/2)
-#define WAITING_TICKS_LITTLE_RING WAITING_TICKS_BIG_RING*3/2
-
-class SimonIntroState: public SoundState {
+class SimonIntroState: public RadarState {
 public:
 	SimonIntroState();
 	void activate();
 	void update();
+	bool isFinished();
+protected:
+	void setColors();
 private:
-	void rotateAll(uint8_t &waitingCounter, uint8_t waitingTicks, uint64_t rotationLocationMask);
-	uint64_t m_redMask;
-	uint64_t m_blueMask;
-	uint64_t m_yellowMask;
-	uint64_t m_greenMask;
-	uint8_t m_waitingCountBigRing;
-	uint8_t m_waitingCountLittleRing;
+	SoundState * m_soundState;
 	const uint32_t m_red;
 	const uint32_t m_blue;
 	const uint32_t m_yellow;
 	const uint32_t m_green;
+	const uint32_t m_white;
 };
 
 #endif /* SRC_STATES_SIMON_SIMONINTROSTATE_H_ */

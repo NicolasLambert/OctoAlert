@@ -8,28 +8,25 @@
 #ifndef SRC_STATES_COMMON_RADARSTATE_H_
 #define SRC_STATES_COMMON_RADARSTATE_H_
 
-#define WAITING_TICKS 10
+#define WAITING_TICKS 5
 
 #include "AbstractState.h"
 #include "../../io/output/OutputManager.h"
 #include "../../io/output/LedMapping.h"
+#include "../../io/output/RotaryMask.h"
+#include "../../io/output/Color.h"
 
 class RadarState: public AbstractState {
 public:
-	RadarState(
-			uint32_t color,
-			uint64_t ledMask = LED_MASK_ALL,
-			uint16_t blinkStateChangeCount = 0);
+	RadarState(uint64_t mask, uint8_t waitingTicks = WAITING_TICKS, uint16_t rotationCount = 0);
 	void activate();
 	void update();
 	bool isFinished();
+protected:
+	virtual void setColors() = 0;
 private:
-	const uint64_t m_startLedMask;
-	uint64_t m_ledMask;
-	const uint32_t m_color;
-	const uint16_t m_maxRotationCount;
-	uint8_t m_waitingCounts;
-	uint16_t m_currentRotationCount;
+	RotaryMask * m_ledMask;
+	uint32_t m_colorOff;
 };
 
 #endif /* SRC_STATES_COMMON_RADARSTATE_H_ */

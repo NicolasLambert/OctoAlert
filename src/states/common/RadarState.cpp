@@ -7,28 +7,20 @@
 
 #include "RadarState.h"
 
-RadarState::RadarState(uint32_t color, uint64_t ledMask, uint16_t rotationCount) :
-	m_color(color),
-	m_ledMask(ledMask),
-	m_startLedMask(ledMask),
-	m_maxRotationCount(rotationCount),
-	m_currentRotationCount(rotationCount),
-	m_waitingCounts(0) {}
+RadarState::RadarState(uint64_t mask, uint8_t waitingTicks, uint16_t rotationCount) :
+	m_ledMask(new RotaryMask(mask, waitingTicks, rotationCount)),
+	m_colorOff(COLOR_OFF) {}
 
 void RadarState::activate() {
-	m_ledMask = m_startLedMask & (LED_MASK_LED_17 | LED_MASK_LED_29);
-	m_waitingCounts = WAITING_TICKS;
+	m_ledMask->reset();
 }
 
 void RadarState::update() {
-	OutputManager::getInstance()->m_octoAlertLeds->setColor(m_ledMask, m_color, true);
-	m_waitingCounts--;
-	if (!m_waitingCounts) {
-		m_waitingCounts = WAITING_TICKS;
-		rotate(m_ledMask, LED_MASK_BIG_RING);
-	}
+	setColors();
+	OutputManager::getInstance()->m_octoAlertLeds->setColor(m_ledMask->getValue(), m_colorOff, false);
+	m_ledMask->rotate();
 }
 
 bool RadarState::isFinished() {
-	return false;
+	return m_ledMask->isFinished();
 }

@@ -65,6 +65,7 @@
 #define LED_MASK_BIG_RING             0b00000000000000000111111111111111111111111
 
 #define LED_MASK_CROSS                0b10010010000100100000100001000000100001000
+#define LED_MASK_RADAR                0b01111111011111110111111111110111111111110
 
 #define LED_MASK_LED_0                0b10000000000000000000000000000000000000000
 #define LED_MASK_LED_1                0b01000000000000000000000000000000000000000
@@ -109,23 +110,5 @@
 #define LED_MASK_LED_40               0b00000000000000000000000000000000000000001
 
 const static uint8_t idToPinLedMap[LED_COUNT] = {PIN_LED_0, PIN_LED_1, PIN_LED_2, PIN_LED_3, PIN_LED_4, PIN_LED_5, PIN_LED_6, PIN_LED_7, PIN_LED_8, PIN_LED_9, PIN_LED_10, PIN_LED_11, PIN_LED_12, PIN_LED_13, PIN_LED_14, PIN_LED_15, PIN_LED_16, PIN_LED_17, PIN_LED_18, PIN_LED_19, PIN_LED_20, PIN_LED_21, PIN_LED_22, PIN_LED_23, PIN_LED_24, PIN_LED_25, PIN_LED_26, PIN_LED_27, PIN_LED_28, PIN_LED_29, PIN_LED_30, PIN_LED_31, PIN_LED_32, PIN_LED_33, PIN_LED_34, PIN_LED_35, PIN_LED_36, PIN_LED_37, PIN_LED_38, PIN_LED_39, PIN_LED_40};
-
-static void rotate(uint64_t &colorMaskToRotate, uint64_t rotationLocationMask) {
-	// Get the lowest set bit
-	int rotationStartIndex = __builtin_ctzll(rotationLocationMask);
-	uint64_t ring = colorMaskToRotate;
-	// Remove useless bits
-	ring &= rotationLocationMask;
-	// Shift if necessary for rotation
-	ring >>= rotationStartIndex;
-	// Rotate by 1
-	ring = ((ring >> 1) | (ring << (__builtin_popcountll(rotationLocationMask) - 1)));
-	// Shift to restore maskIndex
-	ring <<= rotationStartIndex;
-	// Clean any polluted bit
-	ring &= rotationLocationMask;
-	// Override rotated bits
-	colorMaskToRotate = ((colorMaskToRotate & ~rotationLocationMask) | ring);
-}
 
 #endif /* SRC_IO_OUTPUT_LEDMAPPING_H_ */
