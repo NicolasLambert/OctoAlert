@@ -8,7 +8,7 @@
 #include "SimonIntroState.h"
 
 SimonIntroState::SimonIntroState() :
-	RadarState(LED_MASK_ALL & ~LED_MASK_TOP_RIGHT_QUARTER, 2, 2),
+	RadarState(LED_MASK_ALL & ~LED_MASK_TOP_RIGHT_QUARTER, 2, 0),
 	m_soundState(new SoundState(SOUND_SIMON_INTRO)),
 	m_red(COLOR_RED),
 	m_blue(COLOR_BLUE),
@@ -27,7 +27,7 @@ void SimonIntroState::update() {
 }
 
 bool SimonIntroState::isFinished() {
-	return RadarState::isFinished() && m_soundState->isFinished();
+	return m_soundState->isFinished();
 }
 
 void SimonIntroState::setColors() {
